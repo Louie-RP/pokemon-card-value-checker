@@ -1,6 +1,7 @@
 // backend/src/index.js
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -18,12 +19,6 @@ const pokeApi = axios.create({
     headers: { 'X-Api-Key': process.env.POKEMONTCG_API_KEY || '' }
 });
 
-/**
- * GET /api/card-info
- * Supports setId='all' + printedTotal, and returns:
- * - multiple: true + cards[]   (when ambiguous)
- * - multiple: false + card data + marketPrice + priceSources
- */
 app.get('/api/card-info', async (req, res) => {
     const { cardNumber, setId = 'all' } = req.query;
     if (!cardNumber) {
@@ -31,10 +26,7 @@ app.get('/api/card-info', async (req, res) => {
     }
 
     try {
-        // parse "10/102"
         const [number, printedTotal] = String(cardNumber).split('/').map(s => s.trim());
-
-        // build query
         let q = `number:${number}`;
         if (setId !== 'all') {
             q = `set.id:${setId} number:${number}`;
@@ -42,14 +34,12 @@ app.get('/api/card-info', async (req, res) => {
             q = `number:${number} set.printedTotal:${printedTotal}`;
         }
 
-        // fetch card(s)
         const resp = await pokeApi.get('/cards', { params: { q } });
         const matches = resp.data.data;
         if (!matches || matches.length === 0) {
             return res.status(404).json({ error: 'Card not found' });
         }
 
-        // multiple → let frontend disambiguate
         if (matches.length > 1) {
             const cards = matches.map(c => ({
                 id: c.id,
@@ -61,24 +51,25 @@ app.get('/api/card-info', async (req, res) => {
             return res.json({ multiple: true, cards });
         }
 
-        // single match → fetch pricing
+        // single match:
         const card = matches[0];
 
-        // Fetch real low/high via PriceTracker (setId + number)
+        // 1) fetch the full PriceTracker entry
         let marketPrice = { low: null, high: null };
         let priceSources = null;
         try {
-            priceSources = await fetchPriceTrackerCardPrices(card.set.id, card.number);
-            // Extract from tcgplayer.prices
-            const tcg = priceSources?.tcgplayer?.prices;
-            if (!tcg) {
-                throw new Error('No tcgplayer price data available');
-            }
-            // Prefer holofoil, then normal, then reverseHolofoil
-            const priceObj = tcg.holofoil || tcg.normal || tcg.reverseHolofoil;
-            if (!priceObj) {
-                throw new Error('No tcgplayer price object found');
-            }
+            const entry = await fetchPriceTrackerCardPrices(card.set.id, card.number);
+            priceSources = entry;  // now entry.tcgplayer and entry.cardmarket exist
+
+            // pick from tcgplayer first:
+            const tcg = entry.tcgplayer?.prices;
+            // choose holofoil > normal > reverseHolofoil
+            const priceObj = tcg?.holofoil
+                || tcg?.normal
+                || tcg?.reverseHolofoil;
+
+            if (!priceObj) throw new Error('No tcgplayer price object found');
+
             marketPrice = {
                 low: priceObj.low ?? null,
                 high: priceObj.high ?? null
@@ -92,7 +83,6 @@ app.get('/api/card-info', async (req, res) => {
             };
         }
 
-        // respond
         return res.json({
             multiple: false,
             id: card.id,
@@ -101,7 +91,7 @@ app.get('/api/card-info', async (req, res) => {
             set: card.set.name,
             image: card.images.large,
             marketPrice,  // { low, high }
-            priceSources  // full breakdown from PriceTracker
+            priceSources  // full PriceTracker entry (with tcgplayer, cardmarket, etc.)
         });
     } catch (err) {
         console.error('Error in /api/card-info:', err.message || err);

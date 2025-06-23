@@ -11,9 +11,10 @@ if (!API_KEY) {
 }
 
 /**
- * Fetch pricing for a single card via setId + number
- * @param {string} setId    // e.g. 'base1'
- * @param {string} number   // e.g. '4'
+ * Fetch full card pricing entry via setId + number
+ * @param {string} setId    e.g. 'sv10'
+ * @param {string} number   e.g. '131'
+ * @returns {Promise<object>} entire entry including .tcgplayer and .cardmarket
  */
 async function fetchPriceTrackerCardPrices(setId, number) {
     const resp = await axios.get(`${BASE_URL}/prices`, {
@@ -21,14 +22,14 @@ async function fetchPriceTrackerCardPrices(setId, number) {
         headers: { Authorization: `Bearer ${API_KEY}` }
     });
 
-    // resp.data.data is an array of matches; take the first
     const entry = (resp.data.data || [])[0];
-    console.log('PriceTracker API entry:', entry); // Add this line
+    console.log('PriceTracker API entry:', entry);
     if (!entry) {
         throw new Error(`PriceTracker: no data for ${setId}-${number}`);
     }
 
-    return entry.prices;  // { tcgplayer: { lowPrice, highPrice }, … }
+    // return the full entry so caller can pick from .tcgplayer.prices, .cardmarket.prices, etc.
+    return entry;
 }
 
 module.exports = { fetchPriceTrackerCardPrices };
