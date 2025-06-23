@@ -25,7 +25,6 @@ interface APIResponseMultiple {
 }
 
 type APIResponseSingle = CardData;
-
 type APIResponse = APIResponseMultiple | APIResponseSingle;
 
 export default function CardSearch() {
@@ -41,11 +40,9 @@ export default function CardSearch() {
     useEffect(() => {
         axios.get('http://localhost:4000/api/sets')
             .then(res => {
-                // Sort sets by name
                 const sortedSets = res.data.sets.slice().sort((a: { name: string }, b: { name: string }) =>
                     a.name.localeCompare(b.name)
                 );
-                // Prepend All Sets
                 const allSets = [{ id: 'all', name: 'All Sets' }, ...sortedSets];
                 setSets(allSets);
                 setSetId(allSets[0].id);
@@ -56,8 +53,10 @@ export default function CardSearch() {
             });
     }, []);
 
-    const search = async () => {
-        if (!cardNumber || !setId) return;
+    // Combined search function accepting optional overrideSetId
+    const search = async (overrideSetId?: string) => {
+        const effectiveSetId = overrideSetId || setId;
+        if (!cardNumber || !effectiveSetId) return;
         setLoading(true);
         setError('');
         setData(null);
@@ -66,7 +65,7 @@ export default function CardSearch() {
         try {
             const res = await axios.get<APIResponse>(
                 'http://localhost:4000/api/card-info',
-                { params: { cardNumber, setId } }
+                { params: { cardNumber, setId: effectiveSetId } }
             );
 
             if ('multiple' in res.data && res.data.multiple) {
@@ -113,7 +112,7 @@ export default function CardSearch() {
             />
 
             <button
-                onClick={search}
+                onClick={() => search()}
                 disabled={loading || !sets.length}
                 style={{ padding: '8px 16px', width: '100%' }}
             >
@@ -133,7 +132,7 @@ export default function CardSearch() {
                                 onClick={() => {
                                     setSetId(c.setId);
                                     setChoices(null);
-                                    search();
+                                    search(c.setId);  // Use overrideSetId
                                 }}
                                 style={{ cursor: 'pointer', margin: '8px 0' }}
                             >
