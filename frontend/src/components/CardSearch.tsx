@@ -21,10 +21,27 @@ interface TCGPlayerPrice {
     directLow: number | null;
 }
 
+interface CardMarketPrice {
+    averageSellPrice?: number;
+    lowPrice?: number;
+    trendPrice?: number;
+    // ...add more if you want
+}
+interface PriceTrackerTCGP {
+    lowPrice?: number;
+    midPrice?: number;
+    highPrice?: number;
+    marketPrice?: number;
+    directLowPrice?: number;
+    // ...add more if you want
+}
+
 interface CardData extends CardChoice {
     multiple: false;
     marketPrice: MarketPrice | null;
     tcgplayerPrice?: TCGPlayerPrice | null;
+    cardmarket?: CardMarketPrice | null;
+    priceTrackerTCGPlayer?: PriceTrackerTCGP | null;
 }
 
 // API response types (discriminated union)
@@ -191,6 +208,32 @@ export default function CardSearch() {
                                 <li>High: {data.tcgplayerPrice.high !== null ? `$${data.tcgplayerPrice.high}` : 'N/A'}</li>
                                 <li>Market: {data.tcgplayerPrice.market !== null ? `$${data.tcgplayerPrice.market}` : 'N/A'}</li>
                                 <li>Direct Low: {data.tcgplayerPrice.directLow !== null ? `$${data.tcgplayerPrice.directLow}` : 'N/A'}</li>
+                            </ul>
+                        </div>
+                    )}
+
+                    {/* CardMarket Price Section */}
+                    {data.cardmarket && (
+                        <div style={{ marginTop: 16 }}>
+                            <h4>CardMarket:</h4>
+                            <ul style={{ listStyle: 'none', padding: 0 }}>
+                                <li>Average Sell Price: {data.cardmarket.averageSellPrice !== undefined ? `$${data.cardmarket.averageSellPrice}` : 'N/A'}</li>
+                                <li>Low Price: {data.cardmarket.lowPrice !== undefined ? `$${data.cardmarket.lowPrice}` : 'N/A'}</li>
+                                <li>Trend Price: {data.cardmarket.trendPrice !== undefined ? `$${data.cardmarket.trendPrice}` : 'N/A'}</li>
+                            </ul>
+                        </div>
+                    )}
+
+                    {/* PokePriceTracker TCGP Price Section */}
+                    {data.priceTrackerTCGPlayer && (
+                        <div style={{ marginTop: 16 }}>
+                            <h4>PokePriceTracker TCGPlayer:</h4>
+                            <ul style={{ listStyle: 'none', padding: 0 }}>
+                                <li>Low Price: {data.priceTrackerTCGPlayer.lowPrice !== undefined ? `$${data.priceTrackerTCGPlayer.lowPrice}` : 'N/A'}</li>
+                                <li>Mid Price: {data.priceTrackerTCGPlayer.midPrice !== undefined ? `$${data.priceTrackerTCGPlayer.midPrice}` : 'N/A'}</li>
+                                <li>High Price: {data.priceTrackerTCGPlayer.highPrice !== undefined ? `$${data.priceTrackerTCGPlayer.highPrice}` : 'N/A'}</li>
+                                <li>Market Price: {data.priceTrackerTCGPlayer.marketPrice !== undefined ? `$${data.priceTrackerTCGPlayer.marketPrice}` : 'N/A'}</li>
+                                <li>Direct Low Price: {data.priceTrackerTCGPlayer.directLowPrice !== undefined ? `$${data.priceTrackerTCGPlayer.directLowPrice}` : 'N/A'}</li>
                             </ul>
                         </div>
                     )}

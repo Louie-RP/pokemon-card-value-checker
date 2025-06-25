@@ -58,6 +58,10 @@ app.get('/api/card-info', async (req, res) => {
 
         try {
             const entry = await fetchPriceTrackerCardPrices(card.set.id, card.number);
+
+            // Debug: log the tcgplayer section from the API response
+            console.log('PokePriceTracker API tcgplayer:', JSON.stringify(entry.tcgplayer, null, 2));
+
             ebay = entry.ebay;
             const pricesByGrade = ebay.prices || {};
 
@@ -75,6 +79,32 @@ app.get('/api/card-info', async (req, res) => {
                     marketPrice = { low: lo.toFixed(2), high: hi.toFixed(2) };
                 }
             }
+
+            const cardmarket = entry.cardmarket?.prices || null;
+            const ptcgTcgplayer = entry.tcgplayer?.prices?.holofoil || null;
+            const priceTrackerTCGPlayer = ptcgTcgplayer
+                ? {
+                    lowPrice: ptcgTcgplayer.low ?? null,
+                    midPrice: ptcgTcgplayer.mid ?? null,
+                    highPrice: ptcgTcgplayer.high ?? null,
+                    marketPrice: ptcgTcgplayer.market ?? null,
+                    directLowPrice: ptcgTcgplayer.directLow ?? null,
+                }
+                : null;
+
+            return res.json({
+                multiple: false,
+                id: card.id,
+                name: card.name,
+                setId: card.set.id,
+                set: card.set.name,
+                image: card.images.large,
+                marketPrice,
+                ebay,
+                tcgplayerPrice,
+                cardmarket, // add this
+                priceTrackerTCGPlayer // add this
+            });
         } catch (err) {
             console.error('Error fetching eBay data:', err.message || err);
             marketPrice = {
