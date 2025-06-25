@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../pokeFont.css';
 
 type MarketPrice = { low: string; high: string };
 
