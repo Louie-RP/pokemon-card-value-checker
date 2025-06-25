@@ -13,9 +13,18 @@ interface CardChoice {
 }
 
 // Full card data when single match
+interface TCGPlayerPrice {
+    low: number | null;
+    mid: number | null;
+    high: number | null;
+    market: number | null;
+    directLow: number | null;
+}
+
 interface CardData extends CardChoice {
     multiple: false;
-    marketPrice: MarketPrice;
+    marketPrice: MarketPrice | null;
+    tcgplayerPrice?: TCGPlayerPrice | null;
 }
 
 // API response types (discriminated union)
@@ -50,6 +59,8 @@ export default function CardSearch() {
             .catch(err => {
                 console.error('Failed to load sets:', err);
                 setError('Could not load card sets');
+                setData(null);
+                setChoices(null);
             });
     }, []);
 
@@ -90,18 +101,22 @@ export default function CardSearch() {
     return (
         <div style={{ maxWidth: 400, margin: 'auto', padding: 20 }}>
             <label htmlFor="set-select">Set:</label>
-            <select
-                id="set-select"
-                value={setId}
-                onChange={e => setSetId(e.target.value)}
-                style={{ display: 'block', width: '100%', padding: 8, margin: '8px 0' }}
-            >
-                {sets.map(s => (
-                    <option key={s.id} value={s.id}>
-                        {s.name}
-                    </option>
-                ))}
-            </select>
+            {sets.length > 0 ? (
+                <select
+                    id="set-select"
+                    value={setId}
+                    onChange={e => setSetId(e.target.value)}
+                    style={{ display: 'block', width: '100%', padding: 8, margin: '8px 0' }}
+                >
+                    {sets.map(s => (
+                        <option key={s.id} value={s.id}>
+                            {s.name}
+                        </option>
+                    ))}
+                </select>
+            ) : (
+                <p>Loading sets...</p>
+            )}
 
             <input
                 type="text"
@@ -158,9 +173,27 @@ export default function CardSearch() {
                         alt={data.name}
                         style={{ maxWidth: '100%' }}
                     />
-                    <p>
-                        Price: ${data.marketPrice.low} – ${data.marketPrice.high}
-                    </p>
+                    {(data.marketPrice && data.marketPrice.low && data.marketPrice.high) ? (
+                        <p>
+                            eBay Market Price: ${data.marketPrice.low} – ${data.marketPrice.high}
+                        </p>
+                    ) : (
+                        <p style={{ color: 'orange' }}>No eBay price data found for this card.</p>
+                    )}
+
+                    {/* TCGPlayer Price Section */}
+                    {data.tcgplayerPrice && (
+                        <div style={{ marginTop: 16 }}>
+                            <h4>TCG Player (Holofoil):</h4>
+                            <ul style={{ listStyle: 'none', padding: 0 }}>
+                                <li>Low: {data.tcgplayerPrice.low !== null ? `$${data.tcgplayerPrice.low}` : 'N/A'}</li>
+                                <li>Mid: {data.tcgplayerPrice.mid !== null ? `$${data.tcgplayerPrice.mid}` : 'N/A'}</li>
+                                <li>High: {data.tcgplayerPrice.high !== null ? `$${data.tcgplayerPrice.high}` : 'N/A'}</li>
+                                <li>Market: {data.tcgplayerPrice.market !== null ? `$${data.tcgplayerPrice.market}` : 'N/A'}</li>
+                                <li>Direct Low: {data.tcgplayerPrice.directLow !== null ? `$${data.tcgplayerPrice.directLow}` : 'N/A'}</li>
+                            </ul>
+                        </div>
+                    )}
                 </div>
             )}
         </div>
