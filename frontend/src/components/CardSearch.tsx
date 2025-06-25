@@ -55,11 +55,18 @@ type APIResponseSingle = CardData;
 type APIResponse = APIResponseMultiple | APIResponseSingle;
 
 type EbayPSAPrices = {
-  [grade: string]: {
-    average: number | null;
-    count: number | null;
-  };
+    [grade: string]: {
+        average: number | null;
+        count: number | null;
+    };
 };
+
+const EUR_TO_USD = 1.08; // Update this rate as needed
+
+function eurToUsd(eur: number | null | undefined): number | null {
+    if (typeof eur !== 'number' || isNaN(eur)) return null;
+    return +(eur * EUR_TO_USD).toFixed(2);
+}
 
 export default function CardSearch() {
     const [cardNumber, setCardNumber] = useState('');
@@ -125,7 +132,7 @@ export default function CardSearch() {
 
     function formatPrice(value: number | null | undefined): string {
         if (typeof value !== 'number' || isNaN(value)) return 'N/A';
-        return `$${value.toFixed(2)}`;
+        return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
 
     return (
@@ -203,7 +210,7 @@ export default function CardSearch() {
                         alt={data.name}
                         style={{ maxWidth: '100%' }}
                     />
-                    
+
 
                     {/* TCGPlayer Price Section */}
                     {data.tcgplayerPrice && (
@@ -222,11 +229,11 @@ export default function CardSearch() {
                     {/* CardMarket Price Section */}
                     {data.cardmarket && (
                         <div style={{ marginTop: 16 }}>
-                            <h4>CardMarket:</h4>
+                            <h4>CardMarket (converted to USD):</h4>
                             <ul style={{ listStyle: 'none', padding: 0 }}>
-                                <li>Average Sell Price: {data.cardmarket.averageSellPrice !== undefined ? `$${data.cardmarket.averageSellPrice}` : 'N/A'}</li>
-                                <li>Low Price: {data.cardmarket.lowPrice !== undefined ? `$${data.cardmarket.lowPrice}` : 'N/A'}</li>
-                                <li>Trend Price: {data.cardmarket.trendPrice !== undefined ? `$${data.cardmarket.trendPrice}` : 'N/A'}</li>
+                                <li>Average Sell Price: {formatPrice(eurToUsd(data.cardmarket.averageSellPrice))}</li>
+                                <li>Low Price: {formatPrice(eurToUsd(data.cardmarket.lowPrice))}</li>
+                                <li>Trend Price: {formatPrice(eurToUsd(data.cardmarket.trendPrice))}</li>
                             </ul>
                         </div>
                     )}
@@ -234,13 +241,13 @@ export default function CardSearch() {
                     {/* PokePriceTracker TCGP Price Section */}
                     {data.priceTrackerTCGPlayer && (
                         <div style={{ marginTop: 16 }}>
-                            <h4>PokePriceTracker TCGPlayer:</h4>
+                            <h4>PokePriceTracker TCG Player:</h4>
                             <ul style={{ listStyle: 'none', padding: 0 }}>
-                                <li>Low Price: {data.priceTrackerTCGPlayer.lowPrice !== undefined ? `$${data.priceTrackerTCGPlayer.lowPrice}` : 'N/A'}</li>
-                                <li>Mid Price: {data.priceTrackerTCGPlayer.midPrice !== undefined ? `$${data.priceTrackerTCGPlayer.midPrice}` : 'N/A'}</li>
-                                <li>High Price: {data.priceTrackerTCGPlayer.highPrice !== undefined ? `$${data.priceTrackerTCGPlayer.highPrice}` : 'N/A'}</li>
-                                <li>Market Price: {data.priceTrackerTCGPlayer.marketPrice !== undefined ? `$${data.priceTrackerTCGPlayer.marketPrice}` : 'N/A'}</li>
-                                <li>Direct Low Price: {data.priceTrackerTCGPlayer.directLowPrice !== undefined ? `$${data.priceTrackerTCGPlayer.directLowPrice}` : 'N/A'}</li>
+                                <li>Low Price: {formatPrice(data.priceTrackerTCGPlayer.lowPrice)}</li>
+                                <li>Mid Price: {formatPrice(data.priceTrackerTCGPlayer.midPrice)}</li>
+                                <li>High Price: {formatPrice(data.priceTrackerTCGPlayer.highPrice)}</li>
+                                <li>Market Price: {formatPrice(data.priceTrackerTCGPlayer.marketPrice)}</li>
+                                <li>Direct Low Price: {formatPrice(data.priceTrackerTCGPlayer.directLowPrice)}</li>
                             </ul>
                         </div>
                     )}
