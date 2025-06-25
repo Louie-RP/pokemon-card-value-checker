@@ -42,6 +42,7 @@ interface CardData extends CardChoice {
     tcgplayerPrice?: TCGPlayerPrice | null;
     cardmarket?: CardMarketPrice | null;
     priceTrackerTCGPlayer?: PriceTrackerTCGP | null;
+    ebayPSAPrices?: EbayPSAPrices; // <-- add this
 }
 
 // API response types (discriminated union)
@@ -52,6 +53,13 @@ interface APIResponseMultiple {
 
 type APIResponseSingle = CardData;
 type APIResponse = APIResponseMultiple | APIResponseSingle;
+
+type EbayPSAPrices = {
+  [grade: string]: {
+    average: number | null;
+    count: number | null;
+  };
+};
 
 export default function CardSearch() {
     const [cardNumber, setCardNumber] = useState('');
@@ -234,6 +242,24 @@ export default function CardSearch() {
                                 <li>High Price: {data.priceTrackerTCGPlayer.highPrice !== undefined ? `$${data.priceTrackerTCGPlayer.highPrice}` : 'N/A'}</li>
                                 <li>Market Price: {data.priceTrackerTCGPlayer.marketPrice !== undefined ? `$${data.priceTrackerTCGPlayer.marketPrice}` : 'N/A'}</li>
                                 <li>Direct Low Price: {data.priceTrackerTCGPlayer.directLowPrice !== undefined ? `$${data.priceTrackerTCGPlayer.directLowPrice}` : 'N/A'}</li>
+                            </ul>
+                        </div>
+                    )}
+
+                    {/* eBay PSA Graded Prices Section */}
+                    {data.ebayPSAPrices && (
+                        <div style={{ marginTop: 16 }}>
+                            <h4>eBay PSA Graded Prices:</h4>
+                            <ul style={{ listStyle: 'none', padding: 0 }}>
+                                {["8", "9", "10"].map(grade => {
+                                    const priceObj = data.ebayPSAPrices![grade];
+                                    return (
+                                        <li key={grade}>
+                                            PSA {grade}: {priceObj && priceObj.average !== null ? `$${priceObj.average}` : 'N/A'}
+                                            {priceObj && priceObj.count !== null ? ` (${priceObj.count} sold)` : ''}
+                                        </li>
+                                    );
+                                })}
                             </ul>
                         </div>
                     )}

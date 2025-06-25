@@ -62,23 +62,39 @@ app.get('/api/card-info', async (req, res) => {
             // Debug: log the tcgplayer section from the API response
             console.log('PokePriceTracker API tcgplayer:', JSON.stringify(entry.tcgplayer, null, 2));
 
-            ebay = entry.ebay;
+            ebay = entry.ebay || {};
             const pricesByGrade = ebay.prices || {};
 
-            // Prefer PSA10 if available
-            if (pricesByGrade['10']?.price != null) {
-                const p = pricesByGrade['10'].price;
-                marketPrice = { low: p.toFixed(2), high: p.toFixed(2) };
-            } else {
-                const vals = Object.values(pricesByGrade)
-                    .map(o => o.price)
-                    .filter(v => typeof v === 'number');
-                if (vals.length) {
-                    const lo = Math.min(...vals);
-                    const hi = Math.max(...vals);
-                    marketPrice = { low: lo.toFixed(2), high: hi.toFixed(2) };
-                }
+            // Normalize keys (support both "8" and "PSA 8")
+            function getGradeStats(prices, grade) {
+                return (
+                    prices[`PSA ${grade}`]?.stats?.average ??
+                    prices[`${grade}`]?.stats?.average ??
+                    null
+                );
             }
+            function getGradeCount(prices, grade) {
+                return (
+                    prices[`PSA ${grade}`]?.stats?.count ??
+                    prices[`${grade}`]?.stats?.count ??
+                    null
+                );
+            }
+
+            const ebayPSAPrices = {
+                "8": {
+                    average: getGradeStats(pricesByGrade, 8),
+                    count: getGradeCount(pricesByGrade, 8),
+                },
+                "9": {
+                    average: getGradeStats(pricesByGrade, 9),
+                    count: getGradeCount(pricesByGrade, 9),
+                },
+                "10": {
+                    average: getGradeStats(pricesByGrade, 10),
+                    count: getGradeCount(pricesByGrade, 10),
+                },
+            };
 
             const cardmarket = entry.cardmarket?.prices || null;
             const ptcgTcgplayer = entry.tcgplayer?.prices?.holofoil || null;
@@ -103,7 +119,8 @@ app.get('/api/card-info', async (req, res) => {
                 ebay,
                 tcgplayerPrice,
                 cardmarket, // add this
-                priceTrackerTCGPlayer // add this
+                priceTrackerTCGPlayer, // add this
+                ebayPSAPrices,
             });
         } catch (err) {
             console.error('Error fetching eBay data:', err.message || err);
