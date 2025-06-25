@@ -123,6 +123,11 @@ export default function CardSearch() {
         }
     };
 
+    function formatPrice(value: number | null | undefined): string {
+        if (typeof value !== 'number' || isNaN(value)) return 'N/A';
+        return `$${value.toFixed(2)}`;
+    }
+
     return (
         <div style={{ maxWidth: 400, margin: 'auto', padding: 20 }}>
             <label htmlFor="set-select">Set:</label>
@@ -198,24 +203,18 @@ export default function CardSearch() {
                         alt={data.name}
                         style={{ maxWidth: '100%' }}
                     />
-                    {(data.marketPrice && data.marketPrice.low && data.marketPrice.high) ? (
-                        <p>
-                            eBay Market Price: ${data.marketPrice.low} – ${data.marketPrice.high}
-                        </p>
-                    ) : (
-                        <p style={{ color: 'orange' }}>No eBay price data found for this card.</p>
-                    )}
+                    
 
                     {/* TCGPlayer Price Section */}
                     {data.tcgplayerPrice && (
                         <div style={{ marginTop: 16 }}>
                             <h4>TCG Player (Holofoil):</h4>
                             <ul style={{ listStyle: 'none', padding: 0 }}>
-                                <li>Low: {data.tcgplayerPrice.low !== null ? `$${data.tcgplayerPrice.low}` : 'N/A'}</li>
-                                <li>Mid: {data.tcgplayerPrice.mid !== null ? `$${data.tcgplayerPrice.mid}` : 'N/A'}</li>
-                                <li>High: {data.tcgplayerPrice.high !== null ? `$${data.tcgplayerPrice.high}` : 'N/A'}</li>
-                                <li>Market: {data.tcgplayerPrice.market !== null ? `$${data.tcgplayerPrice.market}` : 'N/A'}</li>
-                                <li>Direct Low: {data.tcgplayerPrice.directLow !== null ? `$${data.tcgplayerPrice.directLow}` : 'N/A'}</li>
+                                <li>Low: {formatPrice(data.tcgplayerPrice.low)}</li>
+                                <li>Mid: {formatPrice(data.tcgplayerPrice.mid)}</li>
+                                <li>High: {formatPrice(data.tcgplayerPrice.high)}</li>
+                                <li>Market: {formatPrice(data.tcgplayerPrice.market)}</li>
+                                <li>Direct Low: {formatPrice(data.tcgplayerPrice.directLow)}</li>
                             </ul>
                         </div>
                     )}
@@ -255,7 +254,7 @@ export default function CardSearch() {
                                     const priceObj = data.ebayPSAPrices![grade];
                                     return (
                                         <li key={grade}>
-                                            PSA {grade}: {priceObj && priceObj.average !== null ? `$${priceObj.average}` : 'N/A'}
+                                            PSA {grade}: {formatPrice(priceObj?.average)}
                                             {priceObj && priceObj.count !== null ? ` (${priceObj.count} sold)` : ''}
                                         </li>
                                     );
