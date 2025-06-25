@@ -156,21 +156,28 @@ export default function CardSearch() {
                 <p>Loading sets...</p>
             )}
 
-            <input
-                type="text"
-                placeholder="e.g. 4/102"
-                value={cardNumber}
-                onChange={e => setCardNumber(e.target.value)}
-                style={{ width: '100%', padding: 8, marginBottom: 8 }}
-            />
-
-            <button
-                onClick={() => search()}
-                disabled={loading || !sets.length}
-                style={{ padding: '8px 16px', width: '100%' }}
+            <form
+                onSubmit={e => {
+                    e.preventDefault();
+                    search();
+                }}
             >
-                {loading ? 'Searching…' : 'Search'}
-            </button>
+                <input
+                    type="text"
+                    placeholder="e.g. 4/102"
+                    value={cardNumber}
+                    onChange={e => setCardNumber(e.target.value)}
+                    style={{ width: '100%', padding: 8, marginBottom: 8 }}
+                />
+
+                <button
+                    type="submit"
+                    disabled={loading || !sets.length}
+                    style={{ padding: '8px 16px', width: '100%' }}
+                >
+                    {loading ? 'Searching…' : 'Search'}
+                </button>
+            </form>
 
             {error && <p style={{ color: 'red', marginTop: 12 }}>{error}</p>}
 
