@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../pokeFont.css';
+import SetSelector from './SetSelector';
+import CardSearchForm from './CardSearchForm';
+import CardChoices from './CardChoices';
+import CardDetails from './CardDetails';
 
 type MarketPrice = { low: string; high: string };
 
@@ -69,6 +73,11 @@ function eurToUsd(eur: number | null | undefined): number | null {
     return +(eur * EUR_TO_USD).toFixed(2);
 }
 
+export function formatPrice(price: number | null | undefined): string {
+    if (typeof price !== 'number' || isNaN(price)) return 'N/A';
+    return `$${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
 export default function CardSearch() {
     const [cardNumber, setCardNumber] = useState('');
     const [setId, setSetId] = useState('all');
@@ -131,153 +140,37 @@ export default function CardSearch() {
         }
     };
 
-    function formatPrice(value: number | null | undefined): string {
-        if (typeof value !== 'number' || isNaN(value)) return 'N/A';
-        return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    }
+    const handleChoiceClick = (choice: CardChoice) => {
+        setSetId(choice.setId);
+        setChoices(null);
+        setCardNumber('');
+        search(choice.setId);
+    };
+
+    const handleClear = () => {
+        setCardNumber('');
+        setSetId('all');
+        setData(null);
+        setChoices(null);
+        setError('');
+    };
 
     return (
         <div style={{ maxWidth: 400, margin: 'auto', padding: 20 }}>
-            <label htmlFor="set-select">Set:</label>
-            {sets.length > 0 ? (
-                <select
-                    id="set-select"
-                    value={setId}
-                    onChange={e => setSetId(e.target.value)}
-                    style={{ display: 'block', width: '100%', padding: 8, margin: '8px 0' }}
-                >
-                    {sets.map(s => (
-                        <option key={s.id} value={s.id}>
-                            {s.name}
-                        </option>
-                    ))}
-                </select>
-            ) : (
-                <p>Loading sets...</p>
-            )}
-
-            <form
-                onSubmit={e => {
-                    e.preventDefault();
-                    search();
-                }}
-            >
-                <input
-                    type="text"
-                    placeholder="e.g. 4/102"
-                    value={cardNumber}
-                    onChange={e => setCardNumber(e.target.value)}
-                    style={{ width: '100%', padding: 8, marginBottom: 8 }}
-                />
-
-                <button
-                    type="submit"
-                    disabled={loading || !sets.length}
-                    style={{ padding: '8px 16px', width: '100%' }}
-                >
-                    {loading ? 'Searching…' : 'Search'}
-                </button>
-            </form>
-
+            <SetSelector sets={sets} setId={setId} setSetId={setSetId} />
+            <CardSearchForm
+                cardNumber={cardNumber}
+                setCardNumber={setCardNumber}
+                loading={loading}
+                onSearch={() => search()}
+                onClear={handleClear} // <-- Pass the handler here
+            />
             {error && <p style={{ color: 'red', marginTop: 12 }}>{error}</p>}
-
-            {/* Multiple matches: user must select one */}
             {choices && choices.length > 0 && (
-                <div style={{ marginTop: 24 }}>
-                    <h3>Select the correct card:</h3>
-                    <ul style={{ listStyle: 'none', padding: 0 }}>
-                        {choices.map(c => (
-                            <li
-                                key={c.id}
-                                onClick={() => {
-                                    setSetId(c.setId);
-                                    setChoices(null);
-                                    search(c.setId);  // Use overrideSetId
-                                }}
-                                style={{ cursor: 'pointer', margin: '8px 0' }}
-                            >
-                                <img
-                                    src={c.image}
-                                    alt={c.name}
-                                    width={50}
-                                    style={{ verticalAlign: 'middle', marginRight: 8 }}
-                                />
-                                <span>{c.name} ({c.set})</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <CardChoices choices={choices} onChoiceClick={handleChoiceClick} />
             )}
-
-            {/* Single match result */}
             {data && !choices && (
-                <div style={{ marginTop: 24, textAlign: 'center' }}>
-                    <h2>{data.name}</h2>
-                    <img
-                        src={data.image}
-                        alt={data.name}
-                        style={{ maxWidth: '100%' }}
-                    />
-
-
-                    {/* TCGPlayer Price Section */}
-                    {data.tcgplayerPrice && (
-                        <div style={{ marginTop: 16 }}>
-                            <h4>TCG Player (Holofoil):</h4>
-                            <ul style={{ listStyle: 'none', padding: 0 }}>
-                                <li>Low: {formatPrice(data.tcgplayerPrice.low)}</li>
-                                <li>Mid: {formatPrice(data.tcgplayerPrice.mid)}</li>
-                                <li>High: {formatPrice(data.tcgplayerPrice.high)}</li>
-                                <li>Market: {formatPrice(data.tcgplayerPrice.market)}</li>
-                                <li>Direct Low: {formatPrice(data.tcgplayerPrice.directLow)}</li>
-                            </ul>
-                        </div>
-                    )}
-
-                    {/* CardMarket Price Section */}
-                    {data.cardmarket && (
-                        <div style={{ marginTop: 16 }}>
-                            <h4>CardMarket (converted to USD):</h4>
-                            <ul style={{ listStyle: 'none', padding: 0 }}>
-                                <li>Average Sell Price: {formatPrice(eurToUsd(data.cardmarket.averageSellPrice))}</li>
-                                <li>Low Price: {formatPrice(eurToUsd(data.cardmarket.lowPrice))}</li>
-                                <li>Trend Price: {formatPrice(eurToUsd(data.cardmarket.trendPrice))}</li>
-                            </ul>
-                        </div>
-                    )}
-
-                    {/* PokePriceTracker TCGP Price Section */}
-                    {data.priceTrackerTCGPlayer && (
-                        <div style={{ marginTop: 16 }}>
-                            <h4>PokePriceTracker TCG Player:</h4>
-                            <ul style={{ listStyle: 'none', padding: 0 }}>
-                                <li>Low Price: {formatPrice(data.priceTrackerTCGPlayer.lowPrice)}</li>
-                                <li>Mid Price: {formatPrice(data.priceTrackerTCGPlayer.midPrice)}</li>
-                                <li>High Price: {formatPrice(data.priceTrackerTCGPlayer.highPrice)}</li>
-                                <li>Market Price: {formatPrice(data.priceTrackerTCGPlayer.marketPrice)}</li>
-                                <li>Direct Low Price: {formatPrice(data.priceTrackerTCGPlayer.directLowPrice)}</li>
-                            </ul>
-                        </div>
-                    )}
-
-                    {/* eBay PSA Graded Prices Section */}
-                    {data.ebayPSAPrices && (
-                        <div style={{ marginTop: 16 }}>
-                            <h4>eBay PSA Graded Prices:</h4>
-                            <ul style={{ listStyle: 'none', padding: 0 }}>
-                                {["8", "9", "10"].map(grade => {
-                                    const priceObj = data.ebayPSAPrices![grade];
-                                    return (
-                                        <li key={grade}>
-                                            PSA {grade}: {formatPrice(priceObj?.average)}
-                                            {priceObj && priceObj.count !== null ? ` (${priceObj.count} sold)` : ''}
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        </div>
-                    )}
-                </div>
+                <CardDetails data={data} formatPrice={formatPrice} eurToUsd={eurToUsd} />
             )}
         </div>
     );

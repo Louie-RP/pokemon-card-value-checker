@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
 @font-face {
     font-family: 'PokemonSolid';
     src: url('./assets/PokemonSolidNormal-xyWR.ttf') format('truetype');
@@ -6,7 +8,7 @@
 }
 
 .pokemon-title {
-    font-family: 'PokemonSolid', 'Comic Sans MS', 'Comic Sans', cursive;
+    font-family: 'PokemonSolid', 'Luckiest Guy', 'Comic Sans MS', 'Comic Sans', cursive;
     color: #ffcb05;
     /* Blue outline using multiple shadows */
     text-shadow:

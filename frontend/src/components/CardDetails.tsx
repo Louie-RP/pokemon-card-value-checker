@@ -1,0 +1,80 @@
+import React from 'react';
+import TCGPlayerPrices from './TCGPlayerPrices';
+import CardMarketPrices from './CardMarketPrices';
+import PriceTrackerTCGPlayerPrices from './PriceTrackerTCGPlayerPrices';
+import EbayPSAPrices from './EbayPSAPrices';
+
+// Import the interfaces for the price types
+interface TCGPlayerPrice {
+    low: number | null;
+    mid: number | null;
+    high: number | null;
+    market: number | null;
+    directLow: number | null;
+}
+
+interface CardMarketPrice {
+    averageSellPrice?: number;
+    lowPrice?: number;
+    trendPrice?: number;
+}
+
+interface PriceTrackerTCGP {
+    lowPrice?: number;
+    midPrice?: number;
+    highPrice?: number;
+    marketPrice?: number;
+    directLowPrice?: number;
+}
+
+interface EbayPSAPricesType {
+    [grade: string]: {
+        average: number | null;
+        count: number | null;
+    };
+}
+
+interface CardData {
+    id: string;
+    name: string;
+    setId: string;
+    set: string;
+    image: string;
+    multiple: false;
+    marketPrice: { low: string; high: string } | null;
+    tcgplayerPrice?: TCGPlayerPrice | null;
+    cardmarket?: CardMarketPrice | null;
+    priceTrackerTCGPlayer?: PriceTrackerTCGP | null;
+    ebayPSAPrices?: EbayPSAPricesType | null;
+}
+
+interface CardDetailsProps {
+    data: CardData;
+    formatPrice: (price: number | null | undefined) => string;
+    eurToUsd: (eur: number | null | undefined) => number | null;
+}
+
+const CardDetails: React.FC<CardDetailsProps> = ({ data, formatPrice, eurToUsd }) => (
+    <div style={{ marginTop: 24, textAlign: 'center' }}>
+        <h2>{data.name}</h2>
+        <img src={data.image} alt={data.name} style={{ maxWidth: '100%' }} />
+
+        {data.tcgplayerPrice && (
+            <TCGPlayerPrices prices={data.tcgplayerPrice} formatPrice={formatPrice} />
+        )}
+
+        {data.cardmarket && (
+            <CardMarketPrices prices={data.cardmarket} eurToUsd={eurToUsd} />
+        )}
+
+        {data.priceTrackerTCGPlayer && (
+            <PriceTrackerTCGPlayerPrices prices={data.priceTrackerTCGPlayer} formatPrice={formatPrice} />
+        )}
+
+        {data.ebayPSAPrices && (
+            <EbayPSAPrices prices={data.ebayPSAPrices} />
+        )}
+    </div>
+);
+
+export default CardDetails;
