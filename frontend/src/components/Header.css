@@ -1,0 +1,35 @@
+.site-header {
+  background: #356abc;
+  padding: 0.5rem 0;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px #356abc22;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list li {
+  display: inline;
+}
+
+.nav-list a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-list a.active,
+.nav-list a:hover {
+  background: #f7d358;
+  color: #356abc;
+}

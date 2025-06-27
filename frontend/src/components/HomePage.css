@@ -1,0 +1,153 @@
+.home-container {
+  font-family: 'Segoe UI', sans-serif;
+  color: #1a1a1a;
+  text-align: center;
+  margin-top: 60px;
+  padding-bottom: 40px;
+}
+
+.hero-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg, #f7d358 60%, #fff 100%);
+  padding: 48px 0 32px 0;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 600px;
+  flex: 1;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 12px;
+  color: #356abc;
+  font-family: 'Luckiest Guy', pokeFont, Arial, sans-serif;
+  letter-spacing: 2px;
+}
+
+.hero-content p {
+  font-size: 1.25rem;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 14px 36px;
+  background: #356abc;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(53, 106, 188, 0.15);
+}
+
+.cta-button:hover {
+  background: #254a8a;
+}
+
+.hero-image img {
+  width: 220px;
+  max-width: 100%;
+  margin-left: 32px;
+  filter: drop-shadow(0 4px 16px #356abc33);
+}
+
+.features-section {
+  background-color: #f7f7f7;
+  padding: 4rem 2rem;
+  text-align: center;
+  margin: 56px 0 32px 0;
+}
+
+.features-section h2 {
+  font-size: 2rem;
+  color: #356abc;
+  margin-bottom: 32px;
+}
+
+.features-grid {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(53, 106, 188, 0.08);
+  padding: 28px 24px 20px 24px;
+  width: 260px;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.15s;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 6px 24px rgba(53, 106, 188, 0.15);
+}
+
+.feature-card img {
+  width: 56px;
+  margin-bottom: 18px;
+}
+
+.feature-card h3 {
+  font-size: 1.15rem;
+  color: #356abc;
+  margin-bottom: 10px;
+}
+
+.visual-section {
+  padding: 4rem 2rem;
+  text-align: center;
+  margin-top: 56px;
+}
+
+.visual-section h2 {
+  font-size: 1.7rem;
+  color: #356abc;
+  margin-bottom: 24px;
+}
+
+.card-mockup img {
+  width: 320px;
+  max-width: 90vw;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px #356abc33;
+}
+
+.caption {
+  margin-top: 12px;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.secondary-cta {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 12px 32px;
+  background: #f7d358;
+  color: #356abc;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(53, 106, 188, 0.10);
+}
+
+.secondary-cta:hover {
+  background: #d65b3d;
+}

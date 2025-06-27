@@ -1,26 +1,23 @@
 import React from 'react';
-import CardSearch from './components/CardSearch';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header'; // <-- Add this import
+import HomePage from './components/HomePage';
+import CardSearchPage from './components/CardSearchPage';
+import Contact from './components/Contact';
+import Disclaimer from './components/Disclaimer';
 import './App.css';
 
 function App() {
   return (
-    <div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          marginTop: 24,
-          marginBottom: 24,
-        }}
-      >
-        <h1 className="pokemon-title">
-          <span className="poke-p">P</span>okéValuator
-        </h1>
-        <div className="slogan">Gotta appraise &apos;em all!</div>
-      </div>
-      <CardSearch />
-    </div>
+    <Router>
+      <Header /> {/* Add this line */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/search" element={<CardSearchPage />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/disclaimer" element={<Disclaimer />} />
+      </Routes>
+    </Router>
   );
 }
 

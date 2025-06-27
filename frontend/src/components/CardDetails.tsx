@@ -1,4 +1,5 @@
 import React from 'react';
+import './CardDetails.css';
 import TCGPlayerPrices from './TCGPlayerPrices';
 import CardMarketPrices from './CardMarketPrices';
 import PriceTrackerTCGPlayerPrices from './PriceTrackerTCGPlayerPrices';
@@ -54,27 +55,46 @@ interface CardDetailsProps {
     eurToUsd: (eur: number | null | undefined) => number | null;
 }
 
-const CardDetails: React.FC<CardDetailsProps> = ({ data, formatPrice, eurToUsd }) => (
-    <div style={{ marginTop: 24, textAlign: 'center' }}>
-        <h2>{data.name}</h2>
-        <img src={data.image} alt={data.name} style={{ maxWidth: '100%' }} />
+const CardDetails: React.FC<CardDetailsProps> = ({ data, formatPrice, eurToUsd }) => {
+    const priceSections = [
+        data.tcgplayerPrice && (
+            <TCGPlayerPrices key="tcgplayer" prices={data.tcgplayerPrice} formatPrice={formatPrice} />
+        ),
+        data.cardmarket && (
+            <CardMarketPrices key="cardmarket" prices={data.cardmarket} eurToUsd={eurToUsd} />
+        ),
+        data.priceTrackerTCGPlayer && (
+            <PriceTrackerTCGPlayerPrices key="ptcgplayer" prices={data.priceTrackerTCGPlayer} formatPrice={formatPrice} />
+        ),
+        data.ebayPSAPrices && (
+            <EbayPSAPrices key="ebaypsa" prices={data.ebayPSAPrices} />
+        ),
+    ].filter(Boolean);
 
-        {data.tcgplayerPrice && (
-            <TCGPlayerPrices prices={data.tcgplayerPrice} formatPrice={formatPrice} />
-        )}
+    const priceClass =
+        priceSections.length === 1
+            ? 'card-details-prices one-col'
+            : 'card-details-prices two-col';
 
-        {data.cardmarket && (
-            <CardMarketPrices prices={data.cardmarket} eurToUsd={eurToUsd} />
-        )}
+    return (
+        <div className="card-details-container">
+            <h2>{data.name}</h2>
+            <img src={data.image} alt={data.name} className="card-details-image" />
 
-        {data.priceTrackerTCGPlayer && (
-            <PriceTrackerTCGPlayerPrices prices={data.priceTrackerTCGPlayer} formatPrice={formatPrice} />
-        )}
-
-        {data.ebayPSAPrices && (
-            <EbayPSAPrices prices={data.ebayPSAPrices} />
-        )}
-    </div>
-);
+            <div className={priceClass}>
+                {priceSections.map((section, idx) => {
+                    if (priceSections.length === 3 && idx === 2) {
+                        return (
+                            <div key={idx} className="full-width">
+                                {section}
+                            </div>
+                        );
+                    }
+                    return section;
+                })}
+            </div>
+        </div>
+    );
+};
 
 export default CardDetails;
