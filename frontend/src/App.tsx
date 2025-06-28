@@ -7,6 +7,7 @@ import Contact from './components/Contact';
 import Disclaimer from './components/Disclaimer';
 import Footer from './components/Footer';
 import './App.css';
+import './pokeFont.css';
 
 function App() {
   return (

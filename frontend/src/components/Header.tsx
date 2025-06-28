@@ -14,20 +14,25 @@ export default function Header() {
 
     return (
         <header className="site-header">
-            <nav>
-                <ul className="nav-list">
-                    {navLinks.map(link => (
-                        <li key={link.to}>
-                            <Link
-                                to={link.to}
-                                className={location.pathname === link.to ? 'active' : ''}
-                            >
-                                {link.label}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
+            <div className="header-inner">
+                <div className="pokemon-title">
+                    <span className="poke-p">P</span>okéValuator
+                </div>
+                <nav>
+                    <ul className="nav-list">
+                        {navLinks.map(link => (
+                            <li key={link.to}>
+                                <Link
+                                    to={link.to}
+                                    className={location.pathname === link.to ? 'active' : ''}
+                                >
+                                    {link.label}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+            </div>
         </header>
     );
 }
