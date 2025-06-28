@@ -6,14 +6,16 @@
 .card-details-flex-container {
   display: flex;
   align-items: flex-start;
-  gap: 32px;
+  /* === Adjust this gap to move values more right or left === */
+  gap: 64px; /* Increased from 32px for more space between image and values */
   margin-top: 32px;
   width: 100%;
 }
 
 .card-details-image-col {
-  min-width: 260px;
-  max-width: 340px;
+  /* === Adjust these to make the card image bigger or smaller === */
+  min-width: 480px;  /* Increased from 340px */
+  max-width: 600px;  /* Increased from 420px */
   flex: 0 0 auto;
   text-align: left;
 }
@@ -21,13 +23,15 @@
 .card-details-image-col h2 {
   margin-top: 0;
   margin-bottom: 16px;
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   color: #fff;
-  text-align: left;
+  text-align: center;
 }
 
 .card-details-image {
-  max-width: 100%;
+  /* === Adjust this max-width to make the image bigger or smaller === */
+  max-width: 580px; /* Increased from 540px */
+  width: 100%;
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(53, 106, 188, 0.12);
   background: #fff;
@@ -74,6 +78,19 @@
   max-width: 420px;
   color: #fff;
   box-shadow: 0 2px 8px rgba(53, 106, 188, 0.06);
+}
+
+@media (max-width: 1100px) {
+  .card-details-flex-container {
+    gap: 32px; /* Reduce gap on smaller screens */
+  }
+  .card-details-image-col {
+    min-width: 220px;
+    max-width: 320px;
+  }
+  .card-details-image {
+    max-width: 260px;
+  }
 }
 
 @media (max-width: 900px) {
