@@ -1,22 +1,26 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header'; // <-- Add this import
+import Header from './components/Header';
 import HomePage from './components/HomePage';
 import CardSearchPage from './components/CardSearchPage';
 import Contact from './components/Contact';
 import Disclaimer from './components/Disclaimer';
+import Footer from './components/Footer';
 import './App.css';
 
 function App() {
   return (
     <Router>
-      <Header /> {/* Add this line */}
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/search" element={<CardSearchPage />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/disclaimer" element={<Disclaimer />} />
-      </Routes>
+      <Header />
+      <div className="app-flex-wrapper">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/search" element={<CardSearchPage />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/disclaimer" element={<Disclaimer />} />
+        </Routes>
+      </div>
+      <Footer />
     </Router>
   );
 }

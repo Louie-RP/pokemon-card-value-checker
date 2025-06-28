@@ -7,14 +7,14 @@ interface SetSelectorProps {
 }
 
 const SetSelector: React.FC<SetSelectorProps> = ({ sets, setId, setSetId }) => (
-    <>
+    <div className="set-selector-wrapper">
         <label htmlFor="set-select">Set:</label>
         {sets.length > 0 ? (
             <select
                 id="set-select"
                 value={setId}
                 onChange={e => setSetId(e.target.value)}
-                style={{ display: 'block', width: '100%', padding: 8, margin: '8px 0' }}
+                className="set-selector-select"
             >
                 {sets.map(s => (
                     <option key={s.id} value={s.id}>
@@ -25,7 +25,7 @@ const SetSelector: React.FC<SetSelectorProps> = ({ sets, setId, setSetId }) => (
         ) : (
             <p>Loading sets...</p>
         )}
-    </>
+    </div>
 );
 
 export default SetSelector;

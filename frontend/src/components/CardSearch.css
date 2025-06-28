@@ -1,0 +1,59 @@
+/* Add to App.css or CardSearch.css */
+.card-search-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto 24px auto;
+  max-width: 400px;
+  width: 100%;
+  padding: 24px 16px;
+  background: rgba(255,255,255,0.07); /* subtle overlay for red bg */
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(53, 106, 188, 0.06);
+}
+
+.set-selector-wrapper,
+.card-search-form {
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Center and compact the set selector */
+.set-selector-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.set-selector-select,
+.card-number-input {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+  margin: 8px 0;
+  font-size: 1rem;
+}
+
+/* Center all labels and inputs in the card search form */
+.card-search-form label {
+  display: block;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.card-number-input {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.card-search-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 300px;
+  gap: 8px;
+}

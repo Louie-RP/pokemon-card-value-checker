@@ -5,6 +5,7 @@ import SetSelector from './SetSelector';
 import CardSearchForm from './CardSearchForm';
 import CardChoices from './CardChoices';
 import CardDetails from './CardDetails';
+import './CardSearch.css'; // Make sure this is imported
 
 type MarketPrice = { low: string; high: string };
 
@@ -157,14 +158,16 @@ export default function CardSearch() {
 
     return (
         <div>
-            <SetSelector sets={sets} setId={setId} setSetId={setSetId} />
-            <CardSearchForm
-                cardNumber={cardNumber}
-                setCardNumber={setCardNumber}
-                loading={loading}
-                onSearch={() => search()}
-                onClear={handleClear} // <-- Pass the handler here
-            />
+            <div className="card-search-center">
+                <SetSelector sets={sets} setId={setId} setSetId={setSetId} />
+                <CardSearchForm
+                    cardNumber={cardNumber}
+                    setCardNumber={setCardNumber}
+                    loading={loading}
+                    onSearch={() => search()}
+                    onClear={handleClear}
+                />
+            </div>
             {error && <p style={{ color: 'red', marginTop: 12 }}>{error}</p>}
             {choices && choices.length > 0 && (
                 <CardChoices choices={choices} onChoiceClick={handleChoiceClick} />

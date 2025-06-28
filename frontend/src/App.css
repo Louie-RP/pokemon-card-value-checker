@@ -8,7 +8,14 @@ html, body, #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #f7f7f7;
+  background: #222; /* Footer and page background color */
+}
+
+.app-flex-wrapper {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .logo {
@@ -88,15 +95,16 @@ html, body, #root {
 .main-content {
   flex: 1 0 auto;
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 2rem 1rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background: #fff;
-  border-radius: 16px;
+  background: #e3350d; /* PokeNotify red */
+  border-radius: 0; /* <-- Remove rounded edges */
   box-shadow: 0 2px 12px rgba(53, 106, 188, 0.08);
+  min-height: 60vh; /* Ensures some height even with little content */
 }
 
 @media (max-width: 900px) {

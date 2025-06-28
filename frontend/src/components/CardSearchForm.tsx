@@ -20,32 +20,30 @@ const CardSearchForm: React.FC<CardSearchFormProps> = ({
             e.preventDefault();
             onSearch();
         }}
-        style={{ marginBottom: 16, width: '100%' }}
+        className="card-search-form"
     >
-        <div style={{ width: '100%' }}>
-            <label htmlFor="card-number">Card Number:</label>
-            <input
-                id="card-number"
-                type="text"
-                value={cardNumber}
-                onChange={e => setCardNumber(e.target.value)}
-                style={{ width: '100%', padding: 8, margin: '8px 0' }}
+        <label htmlFor="card-number">Card Number:</label>
+        <input
+            id="card-number"
+            type="text"
+            value={cardNumber}
+            onChange={e => setCardNumber(e.target.value)}
+            className="card-number-input"
+            disabled={loading}
+            placeholder="e.g. 4/102"
+        />
+        <div className="card-search-buttons">
+            <button type="submit" disabled={loading || !cardNumber}>
+                {loading ? 'Searching...' : 'Search'}
+            </button>
+            <button
+                type="button"
+                onClick={onClear}
                 disabled={loading}
-                placeholder="e.g. 4/102"
-            />
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                <button type="submit" disabled={loading || !cardNumber}>
-                    {loading ? 'Searching...' : 'Search'}
-                </button>
-                <button
-                    type="button"
-                    onClick={onClear}
-                    disabled={loading}
-                    style={{ background: '#eee', color: '#333', border: '1px solid #ccc' }}
-                >
-                    Clear
-                </button>
-            </div>
+                style={{ background: '#eee', color: '#333', border: '1px solid #ccc' }}
+            >
+                Clear
+            </button>
         </div>
     </form>
 );
