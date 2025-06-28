@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
   return (
-    <div className="home-container">
+    <div className="main-content">
       <header className="hero-section">
         <div className="hero-content">
           <h1>PokeValuator</h1>

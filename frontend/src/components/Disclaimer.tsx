@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Disclaimer() {
   return (
-    <div className="disclaimer-container">
+    <div className="main-content">
       <h1>Disclaimer</h1>
       <p>
         PokeValuator is an unofficial Pokémon card value checker created by fans for informational and entertainment purposes only.

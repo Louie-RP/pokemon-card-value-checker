@@ -20,9 +20,9 @@ const CardSearchForm: React.FC<CardSearchFormProps> = ({
             e.preventDefault();
             onSearch();
         }}
-        style={{ marginBottom: 16 }}
+        style={{ marginBottom: 16, width: '100%' }}
     >
-        <div style={{ width: 220, margin: '0 auto' }}>
+        <div style={{ width: '100%' }}>
             <label htmlFor="card-number">Card Number:</label>
             <input
                 id="card-number"

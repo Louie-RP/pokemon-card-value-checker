@@ -1,17 +1,10 @@
 import React from 'react';
 import CardSearch from './CardSearch';
+import './CardSearchPage.css';
 
 const CardSearchPage: React.FC = () => (
-    <div>
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                marginTop: 24,
-                marginBottom: 24,
-            }}
-        >
+    <div className="main-content">
+        <div className="cardsearch-header">
             <h1 className="pokemon-title">
                 <span className="poke-p">P</span>okéValuator
             </h1>

@@ -1,0 +1,14 @@
+.cardsearch-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 600px) {
+  .cardsearch-header {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+}

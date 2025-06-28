@@ -22,7 +22,7 @@ const CardChoices: React.FC<CardChoicesProps> = ({ choices, onChoiceClick }) => 
                         src={c.image}
                         alt={c.name}
                         width={50}
-                        style={{ verticalAlign: 'middle', marginRight: 8 }}
+                        style={{ marginRight: 8, maxWidth: '100%', height: 'auto' }}
                     />
                     <span>
                         {c.name} ({c.set})

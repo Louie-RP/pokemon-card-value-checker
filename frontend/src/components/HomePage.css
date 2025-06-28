@@ -2,7 +2,6 @@
   font-family: 'Segoe UI', sans-serif;
   color: #1a1a1a;
   text-align: center;
-  margin-top: 60px;
   padding-bottom: 40px;
 }
 
@@ -61,8 +60,8 @@
 }
 
 .features-section {
-  background-color: #f7f7f7;
-  padding: 4rem 2rem;
+  /* background-color: #f7f7f7; */
+  /* padding: 4rem 2rem; */
   text-align: center;
   margin: 56px 0 32px 0;
 }
@@ -110,7 +109,7 @@
 }
 
 .visual-section {
-  padding: 4rem 2rem;
+  /* padding: 4rem 2rem; */
   text-align: center;
   margin-top: 56px;
 }

@@ -156,7 +156,7 @@ export default function CardSearch() {
     };
 
     return (
-        <div style={{ maxWidth: 400, margin: 'auto', padding: 20 }}>
+        <div>
             <SetSelector sets={sets} setId={setId} setSetId={setSetId} />
             <CardSearchForm
                 cardNumber={cardNumber}
