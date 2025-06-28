@@ -1,16 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
 .disclaimer-container {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 700px;
+  padding: 2.5rem 1.5rem;
+  font-family: 'Poppins', Arial, sans-serif;
+  line-height: 1.8;
+  background: rgba(255,255,255,0.07);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(53, 106, 188, 0.10);
 }
 
 .disclaimer-container h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 2.3rem; /* Larger heading */
+  margin-bottom: 1.2rem;
   color: #e3350d;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.disclaimer-container p,
+.disclaimer-container li {
+  font-size: 1.18rem; /* Larger body text */
+  color: #fff;
+  margin-bottom: 1.1rem;
+  font-weight: 400;
+}
+
+.disclaimer-container ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .disclaimer-container a {
-  color: #0073e6;
+  color: #f7d358;
   text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.disclaimer-container a:hover {
+  color: #e3350d;
+}
+
+@media (max-width: 700px) {
+  .disclaimer-container {
+    padding: 1.2rem 0.5rem;
+    max-width: 98vw;
+  }
+  .disclaimer-container h1 {
+    font-size: 1.5rem;
+  }
+  .disclaimer-container p,
+  .disclaimer-container li {
+    font-size: 1.02rem;
+  }
 }
