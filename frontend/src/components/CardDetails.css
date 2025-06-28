@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+
 .card-details-container {
   margin-top: 24px;
   text-align: center;
@@ -6,10 +8,12 @@
 .card-details-flex-container {
   display: flex;
   align-items: flex-start;
-  /* === Adjust this gap to move values more right or left === */
   gap: 64px; /* Increased from 32px for more space between image and values */
   margin-top: 32px;
   width: 100%;
+  /* === Added to move the entire card/results section to the right === */
+  margin-left: 80px; /* <-- Increase this value to move further right */
+  /* Alternatively, you could use padding-left instead of margin-left */
 }
 
 .card-details-image-col {
@@ -18,6 +22,8 @@
   max-width: 600px;  /* Increased from 420px */
   flex: 0 0 auto;
   text-align: left;
+  /* === Optionally, add more left margin here if you want only the card image to move further right === */
+  margin-left: 130px;
 }
 
 .card-details-image-col h2 {
@@ -44,6 +50,8 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  margin-left: 150px; /* Already present */
+  margin-top: 60px;   /* === Added: Pushes value section down to align with card image === */
 }
 
 .card-details-prices {
@@ -72,17 +80,22 @@
 .card-details-price-section,
 .card-details-prices > div {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 16px 18px;
-  min-width: 220px;
-  max-width: 420px;
+  border-radius: 12px;
+  padding: 28px 28px; /* Increased padding for bigger cards */
+  min-width: 260px;   /* Increased from 220px */
+  max-width: 520px;   /* Increased from 420px */
   color: #fff;
-  box-shadow: 0 2px 8px rgba(53, 106, 188, 0.06);
+  box-shadow: 0 2px 12px rgba(53, 106, 188, 0.10);
+  font-size: 1.25rem; /* Increased from default */
+  /* === You can further increase font-size here === */
+  font-family: 'Montserrat', Arial, sans-serif;
 }
 
+/* Responsive: Remove left margin on small screens */
 @media (max-width: 1100px) {
   .card-details-flex-container {
-    gap: 32px; /* Reduce gap on smaller screens */
+    gap: 32px;
+    margin-left: 0; /* Remove margin on smaller screens */
   }
   .card-details-image-col {
     min-width: 220px;
