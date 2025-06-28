@@ -77,21 +77,24 @@ const CardDetails: React.FC<CardDetailsProps> = ({ data, formatPrice, eurToUsd }
             : 'card-details-prices two-col';
 
     return (
-        <div className="card-details-container">
-            <h2>{data.name}</h2>
-            <img src={data.image} alt={data.name} className="card-details-image" />
-
-            <div className={priceClass}>
-                {priceSections.map((section, idx) => {
-                    if (priceSections.length === 3 && idx === 2) {
-                        return (
-                            <div key={idx} className="full-width">
-                                {section}
-                            </div>
-                        );
-                    }
-                    return section;
-                })}
+        <div className="card-details-flex-container">
+            <div className="card-details-image-col">
+                <h2>{data.name}</h2>
+                <img src={data.image} alt={data.name} className="card-details-image" />
+            </div>
+            <div className="card-details-prices-col">
+                <div className={priceClass}>
+                    {priceSections.map((section, idx) => {
+                        if (priceSections.length === 3 && idx === 2) {
+                            return (
+                                <div key={idx} className="full-width">
+                                    {section}
+                                </div>
+                            );
+                        }
+                        return <div key={idx}>{section}</div>;
+                    })}
+                </div>
             </div>
         </div>
     );
