@@ -101,7 +101,7 @@ html, body, #root {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background: #e3350d; /* PokeNotify red */
+  background: rgb(223, 30,30); /* PokeNotify red */
   border-radius: 0; /* <-- Remove rounded edges */
   box-shadow: 0 2px 12px rgba(53, 106, 188, 0.08);
   min-height: 60vh; /* Ensures some height even with little content */
