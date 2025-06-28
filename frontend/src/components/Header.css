@@ -1,6 +1,6 @@
 .site-header {
   background: #356abc;
-  padding: 1.1rem 0;
+  padding: .4rem 0;
   box-shadow: 0 2px 8px #356abc22;
   position: sticky;
   top: 0;
@@ -11,26 +11,53 @@
 .header-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
+  justify-content: flex-start;
+  /* Remove max-width and margin to allow full width */
   padding: 0 2rem;
+  position: relative;
+  width: 100%;
+  min-width: 0;
 }
 
-.site-title .poke-p {
+/* Move PokéValuator to the far left with a little space */
+.pokemon-title {
+  margin-left: 0;
+  padding-left: 0.5rem; /* Adjust as needed for spacing from the edge */
+  font-family: 'PokemonSolid', Arial, sans-serif;
+  font-size: 2.8rem;
   color: #f7d358;
-  font-size: 2.2rem;
-  margin-right: 2px;
+  letter-spacing: 1.5px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  text-shadow:
+    -2px -2px 0 #254a8a,
+    2px -2px 0 #254a8a,
+    -2px 2px 0 #254a8a,
+    2px 2px 0 #254a8a;
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+
+.pokemon-title .poke-p {
+  color: #f7d358;
+  font-size: 3.2rem;
+  margin-right: 0.5px;
   font-family: inherit;
 }
 
 .nav-list {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   gap: 2.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .nav-list li {
@@ -57,14 +84,19 @@
 @media (max-width: 900px) {
   .header-inner {
     flex-direction: column;
-    gap: 0.5rem;
+    align-items: flex-start;
     padding: 0 1rem;
   }
-  .site-title {
-    font-size: 1.4rem;
-  }
   .nav-list {
+    position: static;
+    transform: none;
+    margin-top: 0.5rem;
     gap: 1.2rem;
+    width: 100%;
+    justify-content: center;
+  }
+  .pokemon-title {
+    margin-left: 0.5rem;
   }
 }
 
