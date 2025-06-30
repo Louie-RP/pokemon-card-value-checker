@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/autoplay';
 import './CarouselBanner.css';
 import { fetchSets } from '../api';
 
@@ -24,21 +25,6 @@ const CarouselBanner: React.FC = () => {
             });
     }, []);
 
-    const settings = {
-        infinite: true,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 2500,
-        arrows: true,
-        pauseOnHover: true,
-        responsive: [
-            { breakpoint: 1024, settings: { slidesToShow: 4 } },
-            { breakpoint: 768, settings: { slidesToShow: 2 } },
-            { breakpoint: 480, settings: { slidesToShow: 1 } },
-        ],
-    };
-
     return (
         <section className="carousel-banner">
             {sets.length === 0 ? (
@@ -46,15 +32,31 @@ const CarouselBanner: React.FC = () => {
                     No sets found or failed to load sets.
                 </div>
             ) : (
-                <Slider {...settings}>
+                <Swiper
+                    modules={[Autoplay]}
+                    spaceBetween={32}
+                    slidesPerView={5}
+                    loop={true}
+                    autoplay={{ delay: 0, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                    speed={3500}
+                    grabCursor={true}
+                    breakpoints={{
+                        1024: { slidesPerView: 4 },
+                        768: { slidesPerView: 2 },
+                        480: { slidesPerView: 1 },
+                    }}
+                    style={{ width: '100%' }}
+                >
                     {sets.map(set => (
-                        <div key={set.id} className="carousel-item">
-                            <img src={set.images.logo} alt={`${set.name} logo`} />
-                            <p className="set-name">{set.name}</p>
-                            <span className="release-date">{set.releaseDate}</span>
-                        </div>
+                        <SwiperSlide key={set.id}>
+                            <div className="carousel-item">
+                                <img src={set.images.logo} alt={`${set.name} logo`} />
+                                <p className="set-name">{set.name}</p>
+                                <span className="release-date">{set.releaseDate}</span>
+                            </div>
+                        </SwiperSlide>
                     ))}
-                </Slider>
+                </Swiper>
             )}
         </section>
     );

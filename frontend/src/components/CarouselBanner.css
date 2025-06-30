@@ -1,28 +1,33 @@
 .carousel-banner {
   margin: 48px auto;
   max-width: 1200px;
+  /* If using flex or grid, you can add gap here as well */
 }
 
 .carousel-item {
   text-align: center;
-  padding: 0 8px;
+  padding: 0 24px; /* Increased from 8px to 24px for more space */
+  /* Or, alternatively, add margin: 0 12px; */
+  /* margin: 0 12px; */
 }
 
 .carousel-item img {
   display: block;
-  margin: 0 auto 8px;
+  margin: 0 auto 16px; /* Increased bottom margin for more vertical space */
   max-height: 100px;
   object-fit: contain;
 }
 
 .set-name {
-  font-size: 0.9rem;
-  color: #356abc;
+  font-size: 1rem;
+  color: #fff; /* White for strong contrast */
   margin: 4px 0;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5); /* Subtle shadow for readability */
 }
 
 .release-date {
   display: block;
-  font-size: 0.8rem;
-  color: #888;
+  font-size: 0.9rem;
+  color: #ffe066; /* Soft yellow for contrast and warmth */
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
