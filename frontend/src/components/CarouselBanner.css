@@ -1,0 +1,28 @@
+.carousel-banner {
+  margin: 48px auto;
+  max-width: 1200px;
+}
+
+.carousel-item {
+  text-align: center;
+  padding: 0 8px;
+}
+
+.carousel-item img {
+  display: block;
+  margin: 0 auto 8px;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.set-name {
+  font-size: 0.9rem;
+  color: #356abc;
+  margin: 4px 0;
+}
+
+.release-date {
+  display: block;
+  font-size: 0.8rem;
+  color: #888;
+}

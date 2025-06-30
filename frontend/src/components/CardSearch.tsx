@@ -90,9 +90,11 @@ export default function CardSearch() {
 
     // Fetch sets and prepend "All Sets"; sort remaining alphabetically
     useEffect(() => {
-        axios.get('http://localhost:4000/api/sets')
+        axios.get('http://localhost:4000/api/sets?all=true')
             .then(res => {
-                const sortedSets = res.data.sets.slice().sort((a: { name: string }, b: { name: string }) =>
+                // If backend returns an array, use res.data directly
+                const setsArray = Array.isArray(res.data) ? res.data : res.data.sets;
+                const sortedSets = setsArray.slice().sort((a: { name: string }, b: { name: string }) =>
                     a.name.localeCompare(b.name)
                 );
                 const allSets = [{ id: 'all', name: 'All Sets' }, ...sortedSets];

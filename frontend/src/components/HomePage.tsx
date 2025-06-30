@@ -1,6 +1,8 @@
 import React from 'react';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
+import './HomePage.css';
+import CarouselBanner from './CarouselBanner';
 
 const HomePage: React.FC = () => {
   return (
@@ -45,6 +47,8 @@ const HomePage: React.FC = () => {
         </div>
         <Link to="/search" className="secondary-cta">Start Valuating Now</Link>
       </section>
+          {/* === CarouselBanner added before the footer === */}
+      <CarouselBanner />
     </div>
   );
 };
