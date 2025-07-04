@@ -3,7 +3,7 @@ import './HomePage.css';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
 import CarouselBanner from './CarouselBanner';
-import ultraballImage from '../assets/ultraball.png';
+//import ultraballImage from '../assets/ultraball.png';
 
 const HomePage: React.FC = () => {
   return (
@@ -14,7 +14,6 @@ const HomePage: React.FC = () => {
           <Link to="/search" className="cta-button">Start Valuating Now</Link>
         </div>
         <div className="hero-image">
-          <img src={ultraballImage} alt="Ultraball background" />
         </div>
       </header>
 
