@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+@font-face {
+    font-family: 'PokemonSolid';
+    src: url('./assets/PokemonSolidNormal-xyWR.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.pokemon-title {
+    font-family: 'PokemonSolid', 'Luckiest Guy', 'Comic Sans MS', 'Comic Sans', cursive;
+    color: #ffcb05;
+    /* Blue outline using multiple shadows */
+    text-shadow:
+        -2px -2px 0 #3b4cca,
+        2px -2px 0 #3b4cca,
+        -2px 2px 0 #3b4cca,
+        2px 2px 0 #3b4cca,
+        0px 3px 6px #2a3b8f,
+        /* Dark blue shadow at the bottom */
+        0px 6px 12px #2a3b8f;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Special shadow for the "P" */
+.pokemon-title .poke-p {
+    position: relative;
+    display: inline-block;
+    text-shadow:
+        -2px -2px 0 #3b4cca,
+        2px -2px 0 #3b4cca,
+        -2px 2px 0 #3b4cca,
+        2px 2px 0 #3b4cca,
+        -4px 0px 8px #2a3b8f,
+        /* Extra shadow to the left */
+        0px 3px 6px #2a3b8f,
+        0px 6px 12px #2a3b8f;
+}

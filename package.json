@@ -1,0 +1,19 @@
+{
+  "name": "pokemon-card-value-checker",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\""
+  },
+  "devDependencies": {
+    "@types/react-slick": "^0.23.13",
+    "concurrently": "^9.2.0"
+  },
+  "dependencies": {
+    "@formspree/react": "^3.0.0",
+    "@types/react-router-dom": "^5.3.3",
+    "react-router-dom": "^7.6.2",
+    "react-slick": "^0.30.3",
+    "slick-carousel": "^1.8.1",
+    "swiper": "^11.2.10"
+  }
+}

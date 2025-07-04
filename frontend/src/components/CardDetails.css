@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+
+.card-details-container {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.card-details-flex-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 64px; /* Increased from 32px for more space between image and values */
+  margin-top: 32px;
+  width: 100%;
+  /* === Added to move the entire card/results section to the right === */
+  margin-left: 80px; /* <-- Increase this value to move further right */
+  /* Alternatively, you could use padding-left instead of margin-left */
+}
+
+.card-details-image-col {
+  /* === Adjust these to make the card image bigger or smaller === */
+  min-width: 480px;  /* Increased from 340px */
+  max-width: 600px;  /* Increased from 420px */
+  flex: 0 0 auto;
+  text-align: left;
+  /* === Optionally, add more left margin here if you want only the card image to move further right === */
+  margin-left: 130px;
+}
+
+.card-details-image-col h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.9rem;
+  color: #fff;
+  text-align: center;
+}
+
+.card-details-image {
+  /* === Adjust this max-width to make the image bigger or smaller === */
+  max-width: 580px; /* Increased from 540px */
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(53, 106, 188, 0.12);
+  background: #fff;
+  display: block;
+}
+
+.card-details-prices-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: 150px; /* Already present */
+  margin-top: 60px;   /* === Added: Pushes value section down to align with card image === */
+}
+
+.card-details-prices {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+  align-items: start;
+  margin-top: 0;
+  max-width: 600px;
+}
+
+.card-details-prices.one-col {
+  grid-template-columns: 1fr;
+}
+
+.card-details-prices.two-col {
+  grid-template-columns: 1fr 1fr;
+}
+
+.card-details-prices .full-width {
+  grid-column: 1 / span 2;
+  justify-self: center;
+  width: 100%;
+}
+
+.card-details-price-section,
+.card-details-prices > div {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 28px 28px; /* Increased padding for bigger cards */
+  min-width: 260px;   /* Increased from 220px */
+  max-width: 520px;   /* Increased from 420px */
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(53, 106, 188, 0.10);
+  font-size: 1.25rem; /* Increased from default */
+  /* === You can further increase font-size here === */
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+/* Responsive: Remove left margin on small screens */
+@media (max-width: 1100px) {
+  .card-details-flex-container {
+    gap: 32px;
+    margin-left: 0; /* Remove margin on smaller screens */
+  }
+  .card-details-image-col {
+    min-width: 220px;
+    max-width: 320px;
+  }
+  .card-details-image {
+    max-width: 260px;
+  }
+}
+
+@media (max-width: 900px) {
+  .card-details-flex-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .card-details-image-col,
+  .card-details-prices-col {
+    max-width: 100%;
+    width: 100%;
+    align-items: center;
+  }
+  .card-details-prices {
+    width: 100%;
+    max-width: 100%;
+  }
+  .card-details-price-section,
+  .card-details-prices > div {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
