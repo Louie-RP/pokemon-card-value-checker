@@ -9,9 +9,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(90deg, #f7d358 60%, #fff 100%);
+  background: linear-gradient(90deg, #272727 60%, #fff 100%);
   padding: 48px 0 32px 0;
   position: relative;
+  border-radius: 16px;
 }
 
 .hero-content {
@@ -23,33 +24,38 @@
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 12px;
-  color: #356abc;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
   font-family: 'Luckiest Guy', pokeFont, Arial, sans-serif;
   letter-spacing: 2px;
 }
 
 .hero-content p {
   font-size: 1.25rem;
+  text-align: left;
+  margin: 16px 0 24px 0;
   margin-bottom: 24px;
-  color: #333;
+  color: #ffe066;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
 .cta-button {
   display: inline-block;
   margin-top: 24px;
   padding: 14px 36px;
-  background: #356abc;
-  color: #fff;
-  border-radius: 8px;
+  background: #ffe066;
+  color: #e3350d;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 2px 8px rgba(227,53,13,0.10);
   text-decoration: none;
   font-size: 1.2rem;
-  font-weight: bold;
   transition: background 0.2s;
-  box-shadow: 0 2px 8px rgba(53, 106, 188, 0.15);
 }
 
 .cta-button:hover {
-  background: #254a8a;
+  background: #e3350d;
+  color: #fff;
 }
 
 .hero-image img {
@@ -57,18 +63,28 @@
   max-width: 100%;
   margin-left: 32px;
   filter: drop-shadow(0 4px 16px #356abc33);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
 }
 
 .features-section {
-  /* background-color: #f7f7f7; */
-  /* padding: 4rem 2rem; */
+  background-color: #272727;
+  padding: 2rem 2rem;
   text-align: center;
   margin: 56px 0 32px 0;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(53, 106, 188, 0.15);
+  position: relative;
 }
 
 .features-section h2 {
   font-size: 2rem;
-  color: #356abc;
+  color: #ffffff;
+  text-shadow: #1a1a1a 0px 1px 4px;
   margin-bottom: 32px;
 }
 
@@ -80,9 +96,9 @@
 }
 
 .feature-card {
-  background: #fff;
+  background: #272727;
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(53, 106, 188, 0.08);
+  box-shadow: 0 2px 12px rgb(234, 177, 43);
   padding: 28px 24px 20px 24px;
   width: 260px;
   min-height: 260px;
@@ -94,7 +110,7 @@
 
 .feature-card:hover {
   transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 6px 24px rgba(53, 106, 188, 0.15);
+  box-shadow: 0 6px 24px rgba(53, 107, 188, 0.485);
 }
 
 .feature-card img {
@@ -104,33 +120,22 @@
 
 .feature-card h3 {
   font-size: 1.15rem;
-  color: #356abc;
+  color: #ffe066;
+  text-shadow: #1a1a1a 0px 1px 1px;
   margin-bottom: 10px;
 }
 
 .visual-section {
-  /* padding: 4rem 2rem; */
   text-align: center;
   margin-top: 56px;
 }
 
 .visual-section h2 {
   font-size: 1.7rem;
-  color: #356abc;
+  color: #ffffff;
+  text-shadow: #1a1a1a 0px 1px 4px;
   margin-bottom: 24px;
-}
-
-.card-mockup img {
-  width: 320px;
-  max-width: 90vw;
-  border-radius: 12px;
-  box-shadow: 0 4px 24px #356abc33;
-}
-
-.caption {
-  margin-top: 12px;
-  color: #555;
-  font-size: 1.1rem;
+  background: linear-gradient(90deg, #e3350d 0%, #f7d358 100%);
 }
 
 .secondary-cta {
@@ -149,4 +154,38 @@
 
 .secondary-cta:hover {
   background: #d65b3d;
+}
+
+.how-it-works-steps {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin: 32px 0 24px 0;
+  flex-wrap: wrap;
+}
+.how-step {
+  background: #272727;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px #ffe06655;
+  padding: 28px 20px 20px 20px;
+  width: 220px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.how-step img {
+  width: 48px;
+  margin-bottom: 14px;
+}
+.how-step h4 {
+  color: #ffe066;
+  margin-bottom: 8px;
+  font-size: 1.08rem;
+  text-shadow: #1a1a1a 0px 1px 1px;
+}
+.how-step p {
+  color: #fff;
+  font-size: 0.98rem;
 }

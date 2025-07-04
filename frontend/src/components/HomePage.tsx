@@ -1,18 +1,19 @@
 import React from 'react';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
+import './HomePage.css';
+import CarouselBanner from './CarouselBanner';
+//import ultraballImage from '../assets/ultraball.png';
 
 const HomePage: React.FC = () => {
   return (
     <div className="main-content">
       <header className="hero-section">
         <div className="hero-content">
-          <h1>PokeValuator</h1>
           <p>Discover the true value of your Pokémon cards — instantly and effortlessly.</p>
-          <Link to="/search" className="cta-button">Check Card Value</Link>
+          <Link to="/search" className="cta-button">Start Valuating Now</Link>
         </div>
         <div className="hero-image">
-          <img src="/assets/pokeball-hero.png" alt="Pokeball background" />
         </div>
       </header>
 
@@ -38,15 +39,31 @@ const HomePage: React.FC = () => {
       </section>
 
       <section className="visual-section">
-        <h2>Experience the Collector’s Edge</h2>
-        <div className="card-mockup">
-          <img src="/assets/card-mockup.png" alt="Card mockup preview" />
-          <p className="caption">Sleek UI, reliable pricing, and Poké-style accuracy</p>
+        <h2>How It Works</h2>
+        <div className="how-it-works-steps">
+          <div className="how-step">
+            <img src="/assets/search-icon.png" alt="Search" />
+            <h4>1. Search Your Card</h4>
+            <p>Type the card number to find your Pokémon card instantly.</p>
+          </div>
+          <div className="how-step">
+            <img src="/assets/value-icon.png" alt="Value" />
+            <h4>2. View Real-Time Prices</h4>
+            <p>See up-to-date market prices at a glance.</p>
+          </div>
+          <div className="how-step">
+            <img src="/assets/compare-icon.png" alt="Compare" />
+            <h4>3. Compare & Decide</h4>
+            <p>Compare card values and make the best decision for your collection.</p>
+          </div>
         </div>
         <Link to="/search" className="secondary-cta">Start Valuating Now</Link>
       </section>
+      <CarouselBanner />
     </div>
+
   );
 };
 
 export default HomePage;
+

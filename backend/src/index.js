@@ -5,6 +5,7 @@ const cors = require('cors');
 const axios = require('axios');
 const { fetchPriceTrackerCardPrices } = require('./priceTracker');
 const { fetchTCGPlayerHolofoilPrices } = require('./tcgplayer');
+const setsRouter = require('./routes/sets');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -147,17 +148,7 @@ app.get('/api/card-info', async (req, res) => {
     }
 });
 
-// Sets endpoint (unchanged)
-app.get('/api/sets', async (req, res) => {
-    try {
-        const resp = await pokeApi.get('/sets');
-        const sets = resp.data.data.map(s => ({ id: s.id, name: s.name }));
-        res.json({ sets });
-    } catch (err) {
-        console.error('Error fetching sets:', err.message || err);
-        res.status(500).json({ error: 'Failed to fetch sets' });
-    }
-});
+app.use('/api/sets', setsRouter);
 
 app.listen(PORT, () =>
     console.log(`Backend listening on http://localhost:${PORT}`)
