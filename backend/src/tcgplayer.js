@@ -51,7 +51,7 @@ async function fetchRecentSets(limit = 10) {
     }
 
     // Log the raw API response for debugging
-    console.log('PokéTCG API /sets response:', JSON.stringify(resp.data, null, 2));
+    //console.log('PokéTCG API /sets response:', JSON.stringify(resp.data, null, 2));
 
     let sets = resp.data.data;
 
