@@ -31,3 +31,14 @@
   color: #ffe066; /* Soft yellow for contrast and warmth */
   text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
+
+.new-badge {
+  background: #ffe066;
+  color: #e3350d;
+  font-weight: bold;
+  font-size: 0.7em;
+  border-radius: 6px;
+  padding: 2px 8px;
+  margin-left: 8px;
+  vertical-align: middle;
+}

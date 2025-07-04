@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/autoplay';
+//import 'swiper/css/autoplay';
 import './CarouselBanner.css';
 import { fetchSets } from '../api';
 
@@ -47,11 +47,14 @@ const CarouselBanner: React.FC = () => {
                     }}
                     style={{ width: '100%' }}
                 >
-                    {sets.map(set => (
+                    {sets.map((set, idx) => (
                         <SwiperSlide key={set.id}>
                             <div className="carousel-item">
                                 <img src={set.images.logo} alt={`${set.name} logo`} />
-                                <p className="set-name">{set.name}</p>
+                                <p className="set-name">
+                                    {set.name}
+                                    {idx === 0 && <span className="new-badge">NEW</span>}
+                                </p>
                                 <span className="release-date">{set.releaseDate}</span>
                             </div>
                         </SwiperSlide>
