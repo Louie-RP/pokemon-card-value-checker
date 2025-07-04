@@ -3,12 +3,20 @@ require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const { createClient } = require('redis');
 const { fetchPriceTrackerCardPrices } = require('./priceTracker');
 const { fetchTCGPlayerHolofoilPrices } = require('./tcgplayer');
-const setsRouter = require('./routes/sets');
+const createSetsRouter = require('./routes/sets');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+
+// Redis client for caching
+const redisClient = createClient({ url: process.env.REDIS_URL });
+redisClient.on('error', err => console.error('Redis error:', err));
+redisClient.connect().catch(err => console.error('Redis connection error:', err));
+
+const CACHE_TTL = 3600; // seconds
 
 app.use(cors());
 app.use(express.json());
@@ -22,6 +30,16 @@ const pokeApi = axios.create({
 app.get('/api/card-info', async (req, res) => {
     const { cardNumber, setId = 'all' } = req.query;
     if (!cardNumber) return res.status(400).json({ error: 'cardNumber required (e.g. 4/102)' });
+
+    const cacheKey = `card-info:${setId}:${cardNumber}`;
+    try {
+        const cached = await redisClient.get(cacheKey);
+        if (cached) {
+            return res.json(JSON.parse(cached));
+        }
+    } catch (err) {
+        console.error('Redis get error:', err);
+    }
 
     try {
         const [number, printedTotal] = String(cardNumber).split('/').map(s => s.trim());
@@ -41,7 +59,9 @@ app.get('/api/card-info', async (req, res) => {
                 set: c.set.name,
                 image: c.images.small
             }));
-            return res.json({ multiple: true, cards });
+            const data = { multiple: true, cards };
+            await redisClient.setEx(cacheKey, CACHE_TTL, JSON.stringify(data));
+            return res.json(data);
         }
 
         // Single match → fetch eBay pricing
@@ -109,7 +129,7 @@ app.get('/api/card-info', async (req, res) => {
                 }
                 : null;
 
-            return res.json({
+            const data = {
                 multiple: false,
                 id: card.id,
                 name: card.name,
@@ -122,7 +142,9 @@ app.get('/api/card-info', async (req, res) => {
                 cardmarket, // add this
                 priceTrackerTCGPlayer, // add this
                 ebayPSAPrices,
-            });
+            };
+            await redisClient.setEx(cacheKey, CACHE_TTL, JSON.stringify(data));
+            return res.json(data);
         } catch (err) {
             console.error('Error fetching eBay data:', err.message || err);
             marketPrice = {
@@ -131,7 +153,7 @@ app.get('/api/card-info', async (req, res) => {
             };
         }
 
-        return res.json({
+        const data = {
             multiple: false,
             id: card.id,
             name: card.name,
@@ -141,13 +163,16 @@ app.get('/api/card-info', async (req, res) => {
             marketPrice,
             ebay,
             tcgplayerPrice
-        });
+        };
+        await redisClient.setEx(cacheKey, CACHE_TTL, JSON.stringify(data));
+        return res.json(data);
     } catch (err) {
         console.error('Server error:', err.message || err);
         return res.status(500).json({ error: 'Server error' });
     }
 });
 
+const setsRouter = createSetsRouter(redisClient, CACHE_TTL);
 app.use('/api/sets', setsRouter);
 
 app.listen(PORT, () =>
