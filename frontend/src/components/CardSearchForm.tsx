@@ -1,4 +1,3 @@
-import React from 'react';
 
 interface CardSearchFormProps {
     cardNumber: string;
@@ -22,25 +21,26 @@ const CardSearchForm: React.FC<CardSearchFormProps> = ({
         }}
         className="card-search-form"
     >
-        <label htmlFor="card-number">Card Number:</label>
+        <label htmlFor="card-number" className="form-label fw-semibold">Card Number:</label>
         <input
             id="card-number"
             type="text"
             value={cardNumber}
             onChange={e => setCardNumber(e.target.value)}
-            className="card-number-input"
+            className="card-number-input form-control text-center"
             disabled={loading}
             placeholder="e.g. 4/102"
+            autoComplete="off"
         />
-        <div className="card-search-buttons">
-            <button type="submit" disabled={loading || !cardNumber}>
+        <div className="card-search-buttons mt-2">
+            <button type="submit" disabled={loading || !cardNumber} className="btn btn-primary w-50">
                 {loading ? 'Searching...' : 'Search'}
             </button>
             <button
                 type="button"
                 onClick={onClear}
                 disabled={loading}
-                style={{ background: '#eee', color: '#333', border: '1px solid #ccc' }}
+                className="btn btn-outline-light w-50"
             >
                 Clear
             </button>

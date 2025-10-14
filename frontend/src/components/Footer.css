@@ -1,19 +1,20 @@
 .site-footer {
   background-color: #356abc;
   color: #ddd;
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.9rem;
-  width: 100vw;
+  width: 100%;
   box-sizing: border-box;
 }
 
-.site-footer a {
-  color: #79bdfc;
-  margin-left: 0.5rem;
+.site-footer .footer-links a {
   text-decoration: none;
+  transition: color .18s, opacity .18s;
 }
 
-.site-footer a:hover {
+.site-footer .footer-links a:hover {
   text-decoration: underline;
+  color: #f7d358;
+}
+
+@media (max-width: 575px) {
+  .site-footer .footer-links { gap: 1.2rem !important; }
 }

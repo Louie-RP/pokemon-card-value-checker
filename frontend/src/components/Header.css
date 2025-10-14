@@ -1,115 +1,57 @@
+/* Sticky header wrapper */
 .site-header {
   background: #356abc;
-  padding: .4rem 0;
-  box-shadow: 0 2px 8px #356abc22;
   position: sticky;
   top: 0;
-  z-index: 100;
-  width: 100vw;
-}
-
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  /* Remove max-width and margin to allow full width */
-  padding: 0 2rem;
-  position: relative;
+  z-index: 1100;
   width: 100%;
-  min-width: 0;
 }
 
-/* Move PokéValuator to the far left with a little space */
+.transition-header { transition: background .25s, box-shadow .25s, transform .25s; }
+.site-header.scrolled { box-shadow: 0 4px 14px -4px rgba(0,0,0,.35); background: #2d599f; }
+.site-header.scrolled .pokemon-title { font-size: 2.0rem; }
+.site-header.scrolled .pokemon-title .poke-p { font-size: 2.25rem; }
+
+/* Brand styling */
 .pokemon-title {
-  margin-left: 0;
-  padding-left: 0.5rem; /* Adjust as needed for spacing from the edge */
   font-family: 'PokemonSolid', Arial, sans-serif;
-  font-size: 2.8rem;
+  font-size: 2.35rem;
   color: #f7d358;
   letter-spacing: 1.5px;
-  display: flex;
-  align-items: center;
-  user-select: none;
   text-shadow:
     -2px -2px 0 #254a8a,
     2px -2px 0 #254a8a,
     -2px 2px 0 #254a8a,
     2px 2px 0 #254a8a;
-  margin-top: 18px;
-  margin-bottom: 8px;
+  line-height: 1;
 }
 
-.pokemon-title .poke-p {
-  color: #f7d358;
-  font-size: 3.2rem;
-  margin-right: 0.5px;
-  font-family: inherit;
-}
+.pokemon-title .poke-p { font-size: 2.6rem; margin-right: 2px; }
 
-.nav-list {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: center;
-  gap: 2.5rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.nav-list li {
-  display: inline;
-}
-
-.nav-list a {
+/* Nav links */
+.navbar-nav .nav-link {
   color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.25rem;
-  padding: 10px 18px;
-  border-radius: 6px;
-  transition: background 0.2s, color 0.2s;
-  letter-spacing: 0.5px;
+  transition: background .18s, color .18s;
+  font-size: 1.05rem;
+  letter-spacing: .5px;
 }
-
-.nav-list a.active,
-.nav-list a:hover {
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
   background: #f7d358;
   color: #356abc;
 }
 
-@media (max-width: 900px) {
-  .header-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0 1rem;
-  }
-  .nav-list {
-    position: static;
-    transform: none;
-    margin-top: 0.5rem;
-    gap: 1.2rem;
-    width: 100%;
-    justify-content: center;
-  }
-  .pokemon-title {
-    margin-left: 0.5rem;
-  }
+/* Toggler customization */
+.navbar-toggler:focus { box-shadow: 0 0 0 .15rem rgba(247,211,88,.5); }
+.navbar-toggler-icon { filter: drop-shadow(0 0 2px rgba(0,0,0,.35)); }
+
+@media (max-width: 992px) {
+  .pokemon-title { font-size: 2.1rem; }
+  .pokemon-title .poke-p { font-size: 2.4rem; }
+  .navbar-nav .nav-link { font-size: 1rem; }
 }
 
-@media (max-width: 700px) {
-  .site-header {
-    padding: 0.7rem 0;
-  }
-  .nav-list {
-    gap: 1rem;
-    font-size: 1rem;
-  }
-  .nav-list a {
-    font-size: 1.05rem;
-    padding: 8px 10px;
-  }
+@media (max-width: 575px) {
+  .pokemon-title { font-size: 1.9rem; }
+  .pokemon-title .poke-p { font-size: 2.2rem; }
 }

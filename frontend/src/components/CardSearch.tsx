@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../pokeFont.css';
 import SetSelector from './SetSelector';
@@ -67,17 +67,7 @@ type EbayPSAPrices = {
     };
 };
 
-const EUR_TO_USD = 1.08; // Update this rate as needed
-
-function eurToUsd(eur: number | null | undefined): number | null {
-    if (typeof eur !== 'number' || isNaN(eur)) return null;
-    return +(eur * EUR_TO_USD).toFixed(2);
-}
-
-export function formatPrice(price: number | null | undefined): string {
-    if (typeof price !== 'number' || isNaN(price)) return 'N/A';
-    return `$${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-}
+import { eurToUsd, formatPrice } from './cardPriceUtils';
 
 export default function CardSearch() {
     const [cardNumber, setCardNumber] = useState('');
@@ -159,8 +149,8 @@ export default function CardSearch() {
     };
 
     return (
-        <div>
-            <div className="card-search-center">
+        <div className="w-100">
+            <div className="card-search-center mx-auto">
                 <SetSelector sets={sets} setId={setId} setSetId={setSetId} />
                 <CardSearchForm
                     cardNumber={cardNumber}
@@ -170,12 +160,16 @@ export default function CardSearch() {
                     onClear={handleClear}
                 />
             </div>
-            {error && <p style={{ color: 'red', marginTop: 12 }}>{error}</p>}
+            {error && <p className="text-danger fw-semibold mt-3 text-center" style={{ marginTop: 12 }}>{error}</p>}
             {choices && choices.length > 0 && (
-                <CardChoices choices={choices} onChoiceClick={handleChoiceClick} />
+                <div className="mt-3">
+                    <CardChoices choices={choices} onChoiceClick={handleChoiceClick} />
+                </div>
             )}
             {data && !choices && (
-                <CardDetails data={data} formatPrice={formatPrice} eurToUsd={eurToUsd} />
+                <div className="mt-4">
+                    <CardDetails data={data} formatPrice={formatPrice} eurToUsd={eurToUsd} />
+                </div>
             )}
         </div>
     );

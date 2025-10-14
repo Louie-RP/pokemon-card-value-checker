@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatPrice } from './CardSearch';
+import { formatPrice } from './cardPriceUtils';
 
 interface CardMarketPrice {
     averageSellPrice?: number;
