@@ -103,10 +103,17 @@ body.theme-light .btn-hero-outline:hover { background: #1c1c1e; color: #fff; }
 /* Dark theme adjustments: keep panels slightly translucent for harmony */
 body.theme-dark .home-features,
 body.theme-dark .home-how-it-works {
-  background: linear-gradient(155deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.05) 55%, rgba(255,255,255,0.04) 100%);
-  box-shadow: 0 8px 24px -10px rgba(0,0,0,.55), 0 2px 6px -2px rgba(0,0,0,.4);
-  border-color: rgba(255,255,255,0.18);
+  background: var(--pv-bg-panel);
+  box-shadow: 0 8px 24px -10px rgba(0,0,0,.65), 0 2px 6px -2px rgba(0,0,0,.5);
+  border-color: #1e1e1e;
 }
+/* Dark hero switches to neutral black gradient */
+body.theme-dark .home-hero {
+  background:
+    linear-gradient(140deg, #151515 0%, #121212 45%, #101010 70%, #0d0d0d 100%);
+  border-color: #1b1b1b;
+}
+body.theme-dark .home-hero::after, body.theme-dark .home-hero::before { background: none; }
 body.theme-dark .home-features .section-title,
 body.theme-dark .home-how-it-works .section-title { color: var(--pv-text-light); }
 body.theme-dark .home-features .section-sub,

@@ -8,8 +8,9 @@ html, body, #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #222; /* Footer and page background color */
+  background: #222; /* Light/default fallback */
 }
+body.theme-dark #root { background: var(--pv-bg); }
 
 .app-flex-wrapper {
   flex: 1 0 auto;
@@ -151,11 +152,12 @@ html, body, #root {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background: rgb(223, 30,30); /* PokeNotify red */
-  border-radius: 0; /* <-- Remove rounded edges */
+  background: rgb(223, 30,30); /* Light theme / default red */
+  border-radius: 0;
   box-shadow: 0 2px 12px rgba(53, 106, 188, 0.08);
-  min-height: 60vh; /* Ensures some height even with little content */
+  min-height: 60vh;
 }
+body.theme-dark .main-content { background: var(--pv-bg-panel); box-shadow: none; }
 
 @media (max-width: 900px) {
   .main-content {

@@ -10,6 +10,7 @@
   border-radius: 14px;
   box-shadow: 0 2px 12px rgba(53, 106, 188, 0.10);
 }
+body.theme-dark .disclaimer-container { background: var(--pv-surface); box-shadow: 0 4px 16px -6px rgba(0,0,0,.6); }
 
 .disclaimer-container h1 {
   font-size: 2.3rem; /* Larger heading */

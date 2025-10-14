@@ -19,13 +19,24 @@
 }
 
 /* Dark theme (default) */
+/* Refined dark theme: layered neutral blacks (no blue/navy) */
 body.theme-dark {
-  --pv-bg: #0f0f0f;
-  --pv-surface: rgba(255,255,255,0.07);
-  --pv-surface-border: rgba(255,255,255,0.18);
-  --pv-text-light: #fff;
-  --pv-text-muted: #b9b9b9;
+  /* Page base */
+  --pv-bg: #0a0a0a;
+  /* Header / footer slightly lifted */
+  --pv-bg-alt: #101010;
+  /* Section panel base (main-content panels) */
+  --pv-bg-panel: #121212;
+  /* Card surfaces / elevated blocks */
+  --pv-surface: #161616;
+  --pv-surface-alt: #1c1c1c;
+  --pv-surface-border: #242424;
+  --pv-text-light: #ffffff;
+  --pv-text-muted: #b5b5b5;
 }
+
+/* Generic dark body + root background application */
+body.theme-dark, body.theme-dark #root { background: var(--pv-bg); }
 
 /* Light theme */
 body.theme-light {

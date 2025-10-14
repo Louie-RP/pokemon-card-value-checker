@@ -135,6 +135,12 @@
   position: relative;
   overflow: hidden;
 }
+body.theme-dark .card-details-price-section,
+body.theme-dark .card-details-prices > div {
+  background: var(--pv-surface);
+  border-color: var(--pv-surface-border);
+  box-shadow: 0 4px 18px -6px rgba(0,0,0,.65);
+}
 .card-details-prices > div h4 { margin-top: 0; margin-bottom: 14px; font-size: 1.15rem; }
 .price-panel-inner h4 { margin-top: 0; margin-bottom: 14px; font-size: 1.15rem; }
 
