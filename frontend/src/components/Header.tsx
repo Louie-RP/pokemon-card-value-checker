@@ -12,6 +12,7 @@ declare global {
     }
 }
 import './Header.css';
+import ThemeToggle from './ThemeToggle';
 
 const navLinks = [
     { to: '/', label: 'Home' },
@@ -160,7 +161,10 @@ export default function Header() {
                                     </li>
                                 );
                             })}
-                        </ul>
+                                                </ul>
+                                                <div className="ms-lg-3 mt-3 mt-lg-0">
+                                                    <ThemeToggle />
+                                                </div>
                     </div>
                 </div>
             </nav>
