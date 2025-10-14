@@ -15,7 +15,7 @@ body.theme-dark .disclaimer-container { background: var(--pv-surface); box-shado
 .disclaimer-container h1 {
   font-size: 2.3rem; /* Larger heading */
   margin-bottom: 1.2rem;
-  color: #e3350d;
+  color: #ffffff;
   font-weight: 700;
   letter-spacing: 1px;
   text-align: center;
