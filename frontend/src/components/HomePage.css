@@ -78,6 +78,41 @@ body.theme-light .btn-hero-outline:hover { background: #1c1c1e; color: #fff; }
 
 /* Features */
 .home-features { position: relative; }
+.home-features,
+.home-how-it-works {
+  /* Revised: solid white panels for clearer separation (user request) */
+  background: #ffffff;
+  border: 1px solid #e2e6ea;
+  border-radius: var(--pv-radius-lg);
+  box-shadow: 0 4px 14px -4px rgba(0,0,0,.18), 0 2px 6px -2px rgba(0,0,0,.12);
+  padding-left: clamp(1rem, 3vw, 3rem);
+  padding-right: clamp(1rem, 3vw, 3rem);
+  position: relative;
+}
+/* Remove previous radial accent overlays to keep panels clean white */
+.home-features::before,
+.home-how-it-works::before { display: none; }
+.home-features .section-title,
+.home-how-it-works .section-title { color: #1c1f24; }
+.home-features .section-sub,
+.home-how-it-works .section-sub { color: #4b5663; }
+.home-features .feature-text { color: #2c3137; }
+.home-how-it-works .step-text { color: #2c3137; }
+.home-how-it-works .timeline-node { box-shadow: 0 0 0 2px rgba(247,211,88,.35); }
+
+/* Dark theme adjustments: keep panels slightly translucent for harmony */
+body.theme-dark .home-features,
+body.theme-dark .home-how-it-works {
+  background: linear-gradient(155deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.05) 55%, rgba(255,255,255,0.04) 100%);
+  box-shadow: 0 8px 24px -10px rgba(0,0,0,.55), 0 2px 6px -2px rgba(0,0,0,.4);
+  border-color: rgba(255,255,255,0.18);
+}
+body.theme-dark .home-features .section-title,
+body.theme-dark .home-how-it-works .section-title { color: var(--pv-text-light); }
+body.theme-dark .home-features .section-sub,
+body.theme-dark .home-how-it-works .section-sub { color: var(--pv-text-muted); }
+body.theme-dark .home-features .feature-text,
+body.theme-dark .home-how-it-works .step-text { color: var(--pv-text-light); }
 .section-heading .section-title { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; color: var(--pv-text-light); }
 .section-heading .section-sub { color: var(--pv-text-muted); max-width: 640px; margin: .75rem auto 0; font-size: .95rem; }
 
@@ -92,8 +127,8 @@ body.theme-light .btn-hero-outline:hover { background: #1c1c1e; color: #fff; }
 
 /* Timeline (How It Works) */
 .home-how-it-works { position: relative; }
-.timeline { display: flex; flex-wrap: nowrap; gap: 2.2rem; justify-content: center; counter-reset: step; overflow-x: auto; padding: .5rem 1rem 1rem; scroll-snap-type: x mandatory; }
-.timeline-item { position: relative; flex: 0 0 320px; display: flex; flex-direction: column; align-items: center; scroll-snap-align: center; }
+.timeline { display: flex; flex-wrap: wrap; gap: 2.2rem; justify-content: center; counter-reset: step; overflow: visible; padding: .5rem 0 .25rem; }
+.timeline-item { position: relative; flex: 1 1 260px; max-width: 340px; display: flex; flex-direction: column; align-items: center; }
 .timeline-node { width: 44px; height: 44px; background: var(--pv-accent); color: #222; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: -22px; box-shadow: var(--pv-shadow-glow); z-index: 2; }
 .timeline-content { padding-top: 2.4rem; position: relative; width: 100%; }
 .timeline-icon img { width: 42px; margin-bottom: .75rem; }
@@ -104,13 +139,17 @@ body.theme-light .btn-hero-outline:hover { background: #1c1c1e; color: #fff; }
 .timeline-item:last-child::before { display: none; }
 
 @media (max-width: 900px) {
-  .timeline { flex-direction: column; gap: 1.8rem; overflow: visible; }
-  .timeline-item { flex: 1 1 auto; width: 100%; }
+  .timeline { flex-direction: column; gap: 1.8rem; }
+  .timeline-item { flex: 1 1 auto; max-width: 100%; }
   .timeline-item::before { left: 22px; top: 44px; transform: none; width: 2px; height: calc(100% + 1.8rem); background: linear-gradient(to bottom, var(--pv-accent) 0%, rgba(247,211,88,.15) 100%); }
   .timeline-item:last-child::before { display: none; }
   .timeline-node { margin-bottom: .75rem; }
   .timeline-content { padding-top: .25rem; }
 }
+
+/* Unified vertical spacing between sections */
+.home-page .container-xl > section + section { margin-top: 4rem; }
+@media (max-width: 768px) { .home-page .container-xl > section + section { margin-top: 3rem; } }
 
 /* CTA Band */
 .home-cta-band {
