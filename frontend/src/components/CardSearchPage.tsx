@@ -7,7 +7,7 @@ const CardSearchPage: React.FC = () => (
             <div className="row justify-content-center text-center">
                 <div className="col-12 col-md-10 col-lg-8 cardsearch-header">
                     <h1 className="pokemon-title mb-2">
-                        <span className="poke-p">P</span>okéValuator
+                        <span className="poke-p"></span>PokéValuator
                     </h1>
                     <div className="slogan">Gotta appraise &apos;em all!</div>
                 </div>

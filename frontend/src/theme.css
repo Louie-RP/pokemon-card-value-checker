@@ -31,8 +31,13 @@ body.theme-dark {
   --pv-surface: #161616;
   --pv-surface-alt: #1c1c1c;
   --pv-surface-border: #242424;
-  --pv-text-light: #ffffff;
-  --pv-text-muted: #b5b5b5;
+  --pv-text-light: #ffffff; /* all standard text white */
+  --pv-text-muted: #e6e6e6; /* near-white muted */
+}
+/* Force dark mode base text white */
+body.theme-dark, body.theme-dark p, body.theme-dark li, body.theme-dark label, body.theme-dark span,
+body.theme-dark div, body.theme-dark h1, body.theme-dark h2, body.theme-dark h3, body.theme-dark h4, body.theme-dark h5, body.theme-dark h6 {
+  color: var(--pv-text-light);
 }
 
 /* Generic dark body + root background application */

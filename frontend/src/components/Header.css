@@ -6,11 +6,13 @@
   z-index: 1100;
   width: 100%;
 }
-body.theme-dark .site-header { background: var(--pv-bg-alt); }
+body.theme-dark .site-header { background: #141414; }
 
 .transition-header { transition: background .25s, box-shadow .25s, transform .25s; }
 .site-header.scrolled { box-shadow: 0 4px 14px -4px rgba(0,0,0,.35); background: #2d599f; }
-body.theme-dark .site-header.scrolled { background: #151515; }
+body.theme-dark .site-header.scrolled { background: #181818; }
+body.theme-dark .pokemon-title { color: #f7d358; }
+body.theme-dark .navbar-nav .nav-link { color: #ffffff; }
 .site-header.scrolled .pokemon-title { font-size: 2.0rem; }
 .site-header.scrolled .pokemon-title .poke-p { font-size: 2.25rem; }
 

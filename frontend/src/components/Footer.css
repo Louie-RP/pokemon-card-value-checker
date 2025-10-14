@@ -4,7 +4,7 @@
   width: 100%;
   box-sizing: border-box;
 }
-body.theme-dark .site-footer { background-color: var(--pv-bg-alt); color: var(--pv-text-muted); }
+body.theme-dark .site-footer { background-color: #141414; color: var(--pv-text-light); }
 
 .site-footer .footer-links a {
   text-decoration: none;

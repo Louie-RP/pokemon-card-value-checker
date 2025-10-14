@@ -126,7 +126,7 @@ export default function Header() {
                         className="navbar-brand d-flex align-items-center gap-1 pokemon-title mb-0"
                         onClick={() => trackNav('brand')}
                     >
-                        <span className="poke-p">P</span>okéValuator
+                        <span className="poke-p"></span>PokéValuator
                     </Link>
                                 <button
                         className="navbar-toggler border-0"
