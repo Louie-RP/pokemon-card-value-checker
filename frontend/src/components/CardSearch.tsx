@@ -5,6 +5,7 @@ import SetSelector from './SetSelector';
 import CardSearchForm from './CardSearchForm';
 import CardChoices from './CardChoices';
 import CardDetails from './CardDetails';
+import CardResultSkeleton from './CardResultSkeleton';
 import './CardSearch.css'; // Make sure this is imported
 
 type MarketPrice = { low: string; high: string };
@@ -161,12 +162,17 @@ export default function CardSearch() {
                 />
             </div>
             {error && <p className="text-danger fw-semibold mt-3 text-center" style={{ marginTop: 12 }}>{error}</p>}
+            {loading && !error && (
+                <div className="mt-4">
+                    <CardResultSkeleton />
+                </div>
+            )}
             {choices && choices.length > 0 && (
                 <div className="mt-3">
                     <CardChoices choices={choices} onChoiceClick={handleChoiceClick} />
                 </div>
             )}
-            {data && !choices && (
+            {data && !choices && !loading && (
                 <div className="mt-4">
                     <CardDetails data={data} formatPrice={formatPrice} eurToUsd={eurToUsd} />
                 </div>

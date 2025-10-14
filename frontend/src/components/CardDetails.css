@@ -32,6 +32,29 @@
   text-align: center;
 }
 
+/* Vertical separator (large screens only; hidden via utility class on small) */
+.card-details-separator {
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+  border-radius: 2px;
+  align-self: stretch;
+  margin: 0 4px;
+  position: relative;
+}
+.card-details-separator::before,
+.card-details-separator::after {
+  content: '';
+  width: 10px; height: 10px;
+  background: #f7d358;
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(247,211,88,.25);
+  opacity: .9;
+}
+.card-details-separator::before { top: -5px; }
+.card-details-separator::after { bottom: -5px; }
+
 .card-details-image {
   max-width: 100%;
   width: 100%;
@@ -75,15 +98,87 @@
 
 .card-details-price-section,
 .card-details-prices > div {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 20px 22px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 18px;
+  padding: 26px 28px 24px 28px;
   min-width: 0;
-  max-width: 100%;
+  width: 100%;
   color: #fff;
-  box-shadow: 0 2px 12px rgba(53, 106, 188, 0.10);
-  font-size: 1.05rem;
+  box-shadow: 0 6px 22px -8px rgba(0,0,0,.35), 0 2px 8px rgba(53, 106, 188, 0.18);
+  font-size: 1.06rem;
+  line-height: 1.35;
   font-family: 'Montserrat', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+.card-details-prices > div h4 { margin-top: 0; margin-bottom: 14px; font-size: 1.15rem; }
+.price-panel-inner h4 { margin-top: 0; margin-bottom: 14px; font-size: 1.15rem; }
+
+/* Larger single column on desktop if only one panel */
+.card-details-prices.one-col { max-width: 520px; }
+
+/* Ensure panel text wraps properly */
+.card-details-prices > div ul { margin: 0; }
+
+/* Subtle gradient overlay to counter red bleed */
+.card-details-prices > div::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+  pointer-events: none;
+}
+
+/* Adjust width handling when two columns present */
+.card-details-prices.two-col > div { width: 100%; }
+
+/* Animation */
+.fade-in-up {
+  --fade-distance: 18px;
+  opacity: 0;
+  transform: translateY(var(--fade-distance));
+  animation: fadeInUp .55s cubic-bezier(.22,.8,.32,1) forwards;
+}
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.price-panel { position: relative; }
+
+/* Skeleton styles */
+.skeleton-wrapper { pointer-events: none; }
+.skeleton-card {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 63/88;
+  border-radius: 8px;
+  background: #333;
+  margin: 0 auto;
+}
+.skeleton,
+.skeleton-title {
+  border-radius: 12px;
+  background: #333;
+  height: 140px;
+}
+.skeleton-title { height: 28px; }
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.25) 45%, rgba(255,255,255,0) 60%);
+  transform: translateX(-100%);
+  animation: shimmer 1.3s infinite;
+}
+@keyframes shimmer {
+  to { transform: translateX(100%); }
 }
 
 /* Responsive: Remove left margin on small screens */

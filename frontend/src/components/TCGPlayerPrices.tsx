@@ -14,7 +14,7 @@ interface TCGPlayerPricesProps {
 }
 
 const TCGPlayerPrices: React.FC<TCGPlayerPricesProps> = ({ prices, formatPrice }) => (
-    <div style={{ marginTop: 16 }}>
+    <div className="price-panel-inner">
         <h4>TCG Player (Holofoil):</h4>
         <ul style={{ listStyle: 'none', padding: 0 }}>
             <li>Low: {formatPrice(prices.low)}</li>
