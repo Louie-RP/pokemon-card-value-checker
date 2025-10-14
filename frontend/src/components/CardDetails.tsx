@@ -71,19 +71,22 @@ const CardDetails: React.FC<CardDetailsProps> = ({ data, formatPrice, eurToUsd }
         ),
     ].filter(Boolean);
 
-    const priceClass =
-        priceSections.length === 1
-            ? 'card-details-prices one-col'
-            : 'card-details-prices two-col';
+    const isSingle = priceSections.length === 1;
+    const priceClass = isSingle ? 'card-details-prices one-col' : 'card-details-prices two-col';
 
     return (
-        <div className="card-details-flex-container">
+        <div className={`card-details-flex-container ${isSingle ? 'single-price-layout' : ''}`}>        
+            {isSingle && (
+                <div className="card-details-unified-heading" role="heading" aria-level={2}>
+                    <h2 className="mb-0">{data.name}</h2>
+                </div>
+            )}
             <div className="card-details-image-col fade-in-up">
-                <h2>{data.name}</h2>
+                {!isSingle && <h2>{data.name}</h2>}
                 <img src={data.image} alt={data.name} className="card-details-image" />
             </div>
-            <div className="card-details-separator d-none d-lg-block" aria-hidden="true" />
-            <div className="card-details-prices-col">
+            {!isSingle && <div className="card-details-separator d-none d-lg-block" aria-hidden="true" />}
+            <div className={`card-details-prices-col ${isSingle ? 'single-price-col' : ''}`}>            
                 <div className={priceClass}>
                     {priceSections.map((section, idx) => {
                         const delay = 80 * idx; // stagger
