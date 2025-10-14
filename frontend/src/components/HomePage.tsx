@@ -1,4 +1,5 @@
 import './HomePage.css';
+import pokeballImg from '../assets/pokeball.png';
 import { Link } from 'react-router-dom';
 import { lazy, Suspense, useEffect, useState } from 'react';
 const CarouselBanner = lazy(() => import('./CarouselBanner'));
@@ -64,7 +65,7 @@ const HomePage: React.FC = () => {
               <p className="hero-tagline mb-4">Accurate multi-source pricing & trend insights for Pokémon card collectors.</p>
               <div className="d-flex flex-wrap gap-3 mb-4 hero-actions">
                 <Link to="/search" className="btn btn-accent btn-lg fw-semibold" onClick={() => track('cta_click','start_valuating_top')}>Start Valuating</Link>
-                <Link to="/disclaimer" className="btn btn-outline-light btn-lg fw-semibold" onClick={() => track('cta_click','learn_more_top')}>Learn More</Link>
+                <Link to="/disclaimer" className="btn btn-hero-outline btn-lg fw-semibold" onClick={() => track('cta_click','learn_more_top')}>Learn More</Link>
               </div>
               <ul className="hero-metrics list-unstyled d-flex flex-wrap gap-4 mb-0">
                 <li><span className="metric-value">50K+</span><span className="metric-label">Cards Indexed</span></li>
@@ -74,7 +75,7 @@ const HomePage: React.FC = () => {
             </div>
             <div className="col-12 col-lg-5 order-1 order-lg-2 d-flex justify-content-center">
               <div className="hero-visual">
-                <img src="/assets/value-icon.png" alt="Pokémon card value visualization" />
+                <img src={pokeballImg} loading="lazy" width={220} height={220} className="hero-pokeball" alt="Poké Ball representing Pokémon card value visualization" />
               </div>
             </div>
           </div>
