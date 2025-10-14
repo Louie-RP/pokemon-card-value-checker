@@ -6,6 +6,9 @@
   --pv-surface-border: rgba(255,255,255,0.14);
   --pv-accent: #f7d358;
   --pv-accent-soft: #ffe8a3;
+  /* Secondary neutral accent (slate blue) */
+  --pv-accent-alt: #5a7fcf;
+  --pv-accent-alt-soft: #8fa8e2;
   --pv-text-light: #fff;
   --pv-text-muted: #cfcfcf;
   --pv-radius-md: 16px;
