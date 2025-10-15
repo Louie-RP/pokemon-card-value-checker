@@ -14,7 +14,7 @@ interface PriceTrackerTCGPlayerPricesProps {
 }
 
 const PriceTrackerTCGPlayerPrices: React.FC<PriceTrackerTCGPlayerPricesProps> = ({ prices, formatPrice }) => (
-    <div style={{ marginTop: 16 }}>
+    <div className="price-panel-inner">
         <h4>Price Tracker TCGPlayer:</h4>
         <ul style={{ listStyle: 'none', padding: 0 }}>
             <li>Low: {formatPrice(prices.lowPrice)}</li>

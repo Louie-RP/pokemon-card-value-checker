@@ -8,14 +8,65 @@ html, body, #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #222; /* Footer and page background color */
+  background: #222; /* Light/default fallback */
 }
+body.theme-dark #root { background: var(--pv-bg); }
 
 .app-flex-wrapper {
   flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   min-height: 0;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 8px;
+  background: #f7d358;
+  color: #222;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 2000;
+  transition: top .25s;
+}
+.skip-link:focus {
+  top: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.3);
+}
+
+/* Back to top button */
+.back-to-top-btn {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px) scale(.85);
+  transition: opacity .25s, transform .25s, background .2s;
+  z-index: 1500;
+}
+.back-to-top-btn.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+.back-to-top-btn:hover {
+  background: #e3c042;
+}
+@media (max-width: 600px) {
+  .back-to-top-btn { right: 12px; bottom: 12px; width: 44px; height: 44px; }
 }
 
 .logo {
@@ -101,11 +152,12 @@ html, body, #root {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background: rgb(223, 30,30); /* PokeNotify red */
-  border-radius: 0; /* <-- Remove rounded edges */
+  background: rgb(223, 30,30); /* Light theme / default red */
+  border-radius: 0;
   box-shadow: 0 2px 12px rgba(53, 106, 188, 0.08);
-  min-height: 60vh; /* Ensures some height even with little content */
+  min-height: 60vh;
 }
+body.theme-dark .main-content { background: var(--pv-bg-panel); box-shadow: none; }
 
 @media (max-width: 900px) {
   .main-content {

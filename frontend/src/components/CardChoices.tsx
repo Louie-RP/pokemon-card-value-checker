@@ -1,4 +1,3 @@
-import React from 'react';
 
 interface CardChoice {
     id: string;
@@ -15,16 +14,21 @@ interface CardChoicesProps {
 
 const CardChoices: React.FC<CardChoicesProps> = ({ choices, onChoiceClick }) => (
     <div style={{ marginTop: 24 }}>
-        <ul className="card-choices-list">
+        <ul className="card-choices-list list-group">
             {choices.map(c => (
-                <li key={c.id} onClick={() => onChoiceClick(c)}>
+                <li
+                    key={c.id}
+                    onClick={() => onChoiceClick(c)}
+                    className="list-group-item d-flex align-items-center bg-transparent text-light border-secondary"
+                    style={{ cursor: 'pointer' }}
+                >
                     <img
                         src={c.image}
                         alt={c.name}
                         width={50}
-                        style={{ marginRight: 8, maxWidth: '100%', height: 'auto' }}
+                        style={{ marginRight: 12, maxWidth: '100%', height: 'auto' }}
                     />
-                    <span>
+                    <span className="fw-medium">
                         {c.name} ({c.set})
                     </span>
                 </li>

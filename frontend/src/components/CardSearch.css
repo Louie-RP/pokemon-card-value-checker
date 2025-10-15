@@ -7,10 +7,11 @@
   max-width: 400px;
   width: 100%;
   padding: 24px 16px;
-  background: rgba(255,255,255,0.07); /* subtle overlay for red bg */
+  background: rgba(255,255,255,0.07); /* light theme overlay */
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(53, 106, 188, 0.06);
 }
+body.theme-dark .card-search-center { background: var(--pv-surface); box-shadow: 0 4px 14px -6px rgba(0,0,0,.55); }
 
 .set-selector-wrapper,
 .card-search-form {

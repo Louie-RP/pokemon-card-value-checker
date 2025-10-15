@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatPrice } from './CardSearch';
+import { formatPrice } from './cardPriceUtils';
 
 interface CardMarketPrice {
     averageSellPrice?: number;
@@ -13,7 +13,7 @@ interface CardMarketPricesProps {
 }
 
 const CardMarketPrices: React.FC<CardMarketPricesProps> = ({ prices, eurToUsd }) => (
-    <div style={{ marginTop: 16 }}>
+    <div className="price-panel-inner">
         <h4>Cardmarket (converted to USD):</h4>
         <ul style={{ listStyle: 'none', padding: 0 }}>
             <li>Average Sell Price: {formatPrice(eurToUsd(prices.averageSellPrice))}</li>

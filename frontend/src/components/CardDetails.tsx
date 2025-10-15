@@ -71,28 +71,38 @@ const CardDetails: React.FC<CardDetailsProps> = ({ data, formatPrice, eurToUsd }
         ),
     ].filter(Boolean);
 
-    const priceClass =
-        priceSections.length === 1
-            ? 'card-details-prices one-col'
-            : 'card-details-prices two-col';
+    const isSingle = priceSections.length === 1;
+    const priceClass = isSingle ? 'card-details-prices one-col' : 'card-details-prices two-col';
 
     return (
-        <div className="card-details-flex-container">
-            <div className="card-details-image-col">
-                <h2>{data.name}</h2>
+        <div className={`card-details-flex-container ${isSingle ? 'single-price-layout' : ''}`}>        
+            {isSingle && (
+                <div className="card-details-unified-heading" role="heading" aria-level={2}>
+                    <h2 className="mb-0">{data.name}</h2>
+                </div>
+            )}
+            <div className="card-details-image-col fade-in-up">
+                {!isSingle && <h2>{data.name}</h2>}
                 <img src={data.image} alt={data.name} className="card-details-image" />
             </div>
-            <div className="card-details-prices-col">
+            {!isSingle && <div className="card-details-separator d-none d-lg-block" aria-hidden="true" />}
+            <div className={`card-details-prices-col ${isSingle ? 'single-price-col' : ''}`}>            
                 <div className={priceClass}>
                     {priceSections.map((section, idx) => {
+                        const delay = 80 * idx; // stagger
+                        const commonProps: React.HTMLAttributes<HTMLDivElement> = { className: 'price-panel fade-in-up', style: { animationDelay: `${delay}ms` } };
                         if (priceSections.length === 3 && idx === 2) {
                             return (
-                                <div key={idx} className="full-width">
+                                <div key={idx} className="full-width" {...commonProps}>
                                     {section}
                                 </div>
                             );
                         }
-                        return <div key={idx}>{section}</div>;
+                        return (
+                            <div key={idx} {...commonProps}>
+                                {section}
+                            </div>
+                        );
                     })}
                 </div>
             </div>

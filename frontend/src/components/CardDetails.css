@@ -8,22 +8,42 @@
 .card-details-flex-container {
   display: flex;
   align-items: flex-start;
-  gap: 64px; /* Increased from 32px for more space between image and values */
-  margin-top: 32px;
+  justify-content: center; /* center whole pair within available width */
+  gap: 56px; /* balanced spacing between image and prices */
+  margin: 32px auto 0 auto;
   width: 100%;
-  /* === Added to move the entire card/results section to the right === */
-  margin-left: 80px; /* <-- Increase this value to move further right */
-  /* Alternatively, you could use padding-left instead of margin-left */
+  max-width: 1400px; /* prevent stretching too wide on ultrawide screens */
+  padding: 0 32px; /* gutter so content never hugs edges */
+  box-sizing: border-box;
 }
 
+/* Single price layout: allow wrapping so wide monitors don't overly compress */
+.card-details-flex-container.single-price-layout {
+  flex-direction: column;
+  align-items: center;
+  gap: 34px;
+}
+.single-price-col { flex: 0 1 auto; width: 100%; max-width: 820px; }
+.single-price-layout .card-details-prices.one-col { max-width: 820px; }
+
+.card-details-unified-heading {
+  width: 100%;
+  max-width: 820px;
+  text-align: center;
+  background: linear-gradient(90deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05));
+  padding: 18px 28px 14px;
+  border-radius: 22px;
+  color: #fff;
+  box-shadow: 0 4px 18px -6px rgba(0,0,0,.35);
+  backdrop-filter: blur(2px);
+}
+.card-details-unified-heading h2 { margin: 0; font-size: 2rem; }
+
 .card-details-image-col {
-  /* === Adjust these to make the card image bigger or smaller === */
-  min-width: 480px;  /* Increased from 340px */
-  max-width: 600px;  /* Increased from 420px */
   flex: 0 0 auto;
-  text-align: left;
-  /* === Optionally, add more left margin here if you want only the card image to move further right === */
-  margin-left: 130px;
+  text-align: center;
+  width: 100%;
+  max-width: 520px; /* unified max for consistent display */
 }
 
 .card-details-image-col h2 {
@@ -34,9 +54,31 @@
   text-align: center;
 }
 
+/* Vertical separator (large screens only; hidden via utility class on small) */
+.card-details-separator {
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+  border-radius: 2px;
+  align-self: stretch;
+  margin: 0 4px;
+  position: relative;
+}
+.card-details-separator::before,
+.card-details-separator::after {
+  content: '';
+  width: 10px; height: 10px;
+  background: #f7d358;
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(247,211,88,.25);
+  opacity: .9;
+}
+.card-details-separator::before { top: -5px; }
+.card-details-separator::after { bottom: -5px; }
+
 .card-details-image {
-  /* === Adjust this max-width to make the image bigger or smaller === */
-  max-width: 580px; /* Increased from 540px */
+  max-width: 100%;
   width: 100%;
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(53, 106, 188, 0.12);
@@ -45,13 +87,12 @@
 }
 
 .card-details-prices-col {
-  flex: 1 1 0;
+  flex: 0 1 560px; /* allow shrink but keep sensible width */
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: flex-start;
-  margin-left: 150px; /* Already present */
-  margin-top: 60px;   /* === Added: Pushes value section down to align with card image === */
+  margin-top: 18px;
 }
 
 .card-details-prices {
@@ -60,7 +101,7 @@
   justify-items: start;
   align-items: start;
   margin-top: 0;
-  max-width: 600px;
+  max-width: 560px;
 }
 
 .card-details-prices.one-col {
@@ -79,53 +120,122 @@
 
 .card-details-price-section,
 .card-details-prices > div {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 28px 28px; /* Increased padding for bigger cards */
-  min-width: 260px;   /* Increased from 220px */
-  max-width: 520px;   /* Increased from 420px */
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 18px;
+  padding: 26px 28px 24px 28px;
+  min-width: 0;
+  width: 100%;
   color: #fff;
-  box-shadow: 0 2px 12px rgba(53, 106, 188, 0.10);
-  font-size: 1.25rem; /* Increased from default */
-  /* === You can further increase font-size here === */
+  box-shadow: 0 6px 22px -8px rgba(0,0,0,.35), 0 2px 8px rgba(53, 106, 188, 0.18);
+  font-size: 1.06rem;
+  line-height: 1.35;
   font-family: 'Montserrat', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+body.theme-dark .card-details-price-section,
+body.theme-dark .card-details-prices > div {
+  background: var(--pv-surface);
+  border-color: var(--pv-accent);
+  box-shadow: 0 0 0 2px rgba(247,211,88,0.3), 0 4px 20px -6px rgba(0,0,0,.7);
+}
+.card-details-prices > div h4 { margin-top: 0; margin-bottom: 14px; font-size: 1.15rem; }
+.price-panel-inner h4 { margin-top: 0; margin-bottom: 14px; font-size: 1.15rem; }
+
+/* Larger single column on desktop if only one panel */
+.card-details-prices.one-col { max-width: 520px; }
+.single-price-layout .card-details-prices.one-col { max-width: 820px; }
+
+/* Ensure panel text wraps properly */
+.card-details-prices > div ul { margin: 0; }
+
+/* Subtle gradient overlay to counter red bleed */
+.card-details-prices > div::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+  pointer-events: none;
+}
+
+/* Adjust width handling when two columns present */
+.card-details-prices.two-col > div { width: 100%; }
+
+/* Animation */
+.fade-in-up {
+  --fade-distance: 18px;
+  opacity: 0;
+  transform: translateY(var(--fade-distance));
+  animation: fadeInUp .55s cubic-bezier(.22,.8,.32,1) forwards;
+}
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.price-panel { position: relative; }
+
+/* Skeleton styles */
+.skeleton-wrapper { pointer-events: none; }
+.skeleton-card {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 63/88;
+  border-radius: 8px;
+  background: #333;
+  margin: 0 auto;
+}
+.skeleton,
+.skeleton-title {
+  border-radius: 12px;
+  background: #333;
+  height: 140px;
+}
+.skeleton-title { height: 28px; }
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.25) 45%, rgba(255,255,255,0) 60%);
+  transform: translateX(-100%);
+  animation: shimmer 1.3s infinite;
+}
+@keyframes shimmer {
+  to { transform: translateX(100%); }
 }
 
 /* Responsive: Remove left margin on small screens */
-@media (max-width: 1100px) {
-  .card-details-flex-container {
-    gap: 32px;
-    margin-left: 0; /* Remove margin on smaller screens */
-  }
-  .card-details-image-col {
-    min-width: 220px;
-    max-width: 320px;
-  }
-  .card-details-image {
-    max-width: 260px;
-  }
+@media (max-width: 1200px) {
+  .card-details-flex-container { gap: 48px; }
+}
+
+@media (max-width: 1050px) {
+  .card-details-flex-container { gap: 40px; }
+  .card-details-prices-col { flex-basis: 520px; }
+  .single-price-col { max-width: 620px; }
+  .card-details-unified-heading { max-width: 620px; }
 }
 
 @media (max-width: 900px) {
   .card-details-flex-container {
     flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    gap: 28px;
+    padding: 0 20px;
   }
-  .card-details-image-col,
-  .card-details-prices-col {
-    max-width: 100%;
-    width: 100%;
-    align-items: center;
-  }
-  .card-details-prices {
-    width: 100%;
-    max-width: 100%;
-  }
-  .card-details-price-section,
-  .card-details-prices > div {
-    width: 100%;
-    min-width: 0;
-    max-width: 100%;
-  }
+  .card-details-image-col, .card-details-prices-col { max-width: 540px; width: 100%; }
+  .card-details-prices { width: 100%; max-width: 100%; }
+  .card-details-price-section, .card-details-prices > div { width: 100%; }
+  .card-details-prices.two-col { grid-template-columns: 1fr; }
+  .card-details-prices .full-width { grid-column: auto; }
+}
+
+@media (max-width: 550px) {
+  .card-details-flex-container { padding: 0 14px; }
+  .card-details-image-col h2 { font-size: 1.5rem; }
 }

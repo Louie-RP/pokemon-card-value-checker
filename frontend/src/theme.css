@@ -1,0 +1,56 @@
+:root {
+  --pv-red: #e3350d;
+  --pv-red-dark: #b22207;
+  --pv-bg: #121212;
+  --pv-surface: rgba(255,255,255,0.06);
+  --pv-surface-border: rgba(255,255,255,0.14);
+  --pv-accent: #f7d358;
+  --pv-accent-soft: #ffe8a3;
+  /* Secondary neutral accent (slate blue) */
+  --pv-accent-alt: #5a7fcf;
+  --pv-accent-alt-soft: #8fa8e2;
+  --pv-text-light: #fff;
+  --pv-text-muted: #cfcfcf;
+  --pv-radius-md: 16px;
+  --pv-radius-lg: 26px;
+  --pv-shadow-sm: 0 2px 6px -2px rgba(0,0,0,.4);
+  --pv-shadow-md: 0 4px 18px -6px rgba(0,0,0,.5);
+  --pv-shadow-glow: 0 0 0 2px rgba(247,211,88,.25);
+}
+
+/* Dark theme (default) */
+/* Refined dark theme: layered neutral blacks (no blue/navy) */
+body.theme-dark {
+  /* Page base */
+  --pv-bg: #0a0a0a;
+  /* Header / footer slightly lifted */
+  --pv-bg-alt: #101010;
+  /* Section panel base (main-content panels) */
+  --pv-bg-panel: #121212;
+  /* Card surfaces / elevated blocks */
+  --pv-surface: #161616;
+  --pv-surface-alt: #1c1c1c;
+  --pv-surface-border: #242424;
+  --pv-text-light: #ffffff; /* all standard text white */
+  --pv-text-muted: #e6e6e6; /* near-white muted */
+}
+/* Force dark mode base text white */
+body.theme-dark, body.theme-dark p, body.theme-dark li, body.theme-dark label, body.theme-dark span,
+body.theme-dark div, body.theme-dark h1, body.theme-dark h2, body.theme-dark h3, body.theme-dark h4, body.theme-dark h5, body.theme-dark h6 {
+  color: var(--pv-text-light);
+}
+
+/* Generic dark body + root background application */
+body.theme-dark, body.theme-dark #root { background: var(--pv-bg); }
+
+/* Light theme */
+body.theme-light {
+  --pv-bg: #f5f5f7;
+  --pv-surface: rgba(0,0,0,0.045);
+  --pv-surface-border: rgba(0,0,0,0.12);
+  --pv-text-light: #1c1c1e;
+  --pv-text-muted: #4a4a4a;
+}
+
+body.theme-light .btn-outline-light { border-color: #1c1c1e; color: #1c1c1e; }
+body.theme-light .btn-outline-light:hover { background: #1c1c1e; color: #fff; }

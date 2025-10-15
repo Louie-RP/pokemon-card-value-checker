@@ -24,10 +24,16 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  /* Remove template flex centering so the app can span full viewport width */
+  display: block;
+}
+
+html, body, #root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; /* Prevent accidental horizontal scroll creating white gutter */
 }
 
 h1 {

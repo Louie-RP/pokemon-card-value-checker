@@ -1,4 +1,3 @@
-import React from 'react';
 
 interface SetSelectorProps {
     sets: { id: string; name: string }[];
@@ -7,14 +6,14 @@ interface SetSelectorProps {
 }
 
 const SetSelector: React.FC<SetSelectorProps> = ({ sets, setId, setSetId }) => (
-    <div className="set-selector-wrapper">
-        <label htmlFor="set-select">Set:</label>
+    <div className="set-selector-wrapper mb-3 text-center">
+        <label htmlFor="set-select" className="form-label fw-semibold">Set:</label>
         {sets.length > 0 ? (
             <select
                 id="set-select"
                 value={setId}
                 onChange={e => setSetId(e.target.value)}
-                className="set-selector-select"
+                className="set-selector-select form-select"
             >
                 {sets.map(s => (
                     <option key={s.id} value={s.id}>
@@ -23,7 +22,7 @@ const SetSelector: React.FC<SetSelectorProps> = ({ sets, setId, setSetId }) => (
                 ))}
             </select>
         ) : (
-            <p>Loading sets...</p>
+            <p className="text-light small">Loading sets...</p>
         )}
     </div>
 );

@@ -10,11 +10,12 @@
   border-radius: 14px;
   box-shadow: 0 2px 12px rgba(53, 106, 188, 0.10);
 }
+body.theme-dark .disclaimer-container { background: var(--pv-surface); box-shadow: 0 4px 16px -6px rgba(0,0,0,.6); }
 
 .disclaimer-container h1 {
   font-size: 2.3rem; /* Larger heading */
   margin-bottom: 1.2rem;
-  color: #e3350d;
+  color: #ffffff;
   font-weight: 700;
   letter-spacing: 1px;
   text-align: center;
@@ -28,9 +29,23 @@
   font-weight: 400;
 }
 
-.disclaimer-container ul {
-  padding-left: 1.5rem;
-  margin-bottom: 1.2rem;
+/* Use list-group now; provide seamless translucent look */
+.disclaimer-container .disclaimer-points {
+  padding-left: 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.disclaimer-container .disclaimer-points .list-group-item {
+  backdrop-filter: blur(2px);
+  background: rgba(255,255,255,0.05) !important;
+  border-color: rgba(255,255,255,0.15) !important;
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+.disclaimer-container .disclaimer-points .list-group-item + .list-group-item {
+  border-top-width: 1px;
 }
 
 .disclaimer-container a {
@@ -46,14 +61,11 @@
 
 @media (max-width: 700px) {
   .disclaimer-container {
-    padding: 1.2rem 0.5rem;
-    max-width: 98vw;
+    padding: 1.4rem .75rem 1.6rem .75rem;
+    max-width: 100%;
   }
-  .disclaimer-container h1 {
-    font-size: 1.5rem;
-  }
+  .disclaimer-container h1 { font-size: 1.55rem; }
   .disclaimer-container p,
-  .disclaimer-container li {
-    font-size: 1.02rem;
-  }
+  .disclaimer-container li { font-size: 0.98rem; }
+  .disclaimer-container .disclaimer-points .list-group-item { font-size: 0.95rem; }
 }
